@@ -1,7 +1,7 @@
 # sapp-hallenboden-plan
-This apps shows a map (plan of a building) with icons of different apps, allows the user to locate these icons on a desired place on the map. The example you can see on the screenshot.
+This app shows a map (plan of a building) with icons of different apps, allows the user to locate these icons on a desired place on the map. The example you can see on the screenshot.
 
-![Screenshot from Android Emulator](https://github.com/ScaleIT-Org/sapp-hallenboden-plan/blob/master/Readme_screenshot.PNG)
+![Screenshot from Android Emulator](https://github.com/ScaleIT-Org/sapp-hallenboden-plan/blob/master/Readme_screenshot1.PNG)
 
 ## how to start
 
