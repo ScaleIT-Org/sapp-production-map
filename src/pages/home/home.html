@@ -6,20 +6,11 @@
 <ion-content padding>
 
   <ion-card>
-    <ion-card-header>
+    <ion-card-header ngDraggable>
       Apps
     </ion-card-header>
     <ion-card-content>
-      <ion-row>
-        <ng-template ngFor let-app [ngForOf]="apps" let-i="index">
-          <div class="app-icon" [ngStyle]="app.checkStatus()" ngDraggable>
-
-
-            <img src={{app.imgUrl}} />
-            <span>{{app.name}}</span>
-          </div>
-        </ng-template>
-      </ion-row>
+       <appicon-widget></appicon-widget>
     </ion-card-content>
 
     <ion-card-header>

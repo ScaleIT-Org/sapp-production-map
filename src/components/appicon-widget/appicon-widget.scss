@@ -1,0 +1,44 @@
+appicon-widget {
+  .app-icon {
+    width: 7vw;
+    border: thick solid;
+    border-color: map-get($colors, disabled);
+    background-color: white;
+    text-align: center;
+  }
+
+  .app-icon span {
+    color: gray;
+    font-weight: bold;
+    font-size: 0.9vw;
+  }
+
+  .app-previewer {
+    position: absolute;
+    // left: 7vw;
+    top: 0px;
+    // z-index: 100;
+  }
+
+  .app-previewer object {
+    overflow: auto;
+    width: 50vw;
+    height: 30vw;
+    border: thin solid $toolbar-background;
+  }
+
+  .widget-bar {
+    border: thin solid $toolbar-background;
+    font-weight: bold;
+    padding: 5px;
+    padding-bottom: 0px;
+    color: black;
+    background-color: lightgray;
+
+    font-size: 1.2vw;
+  }
+
+  .widget-control {
+    float: right;
+  }
+}

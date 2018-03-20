@@ -1,0 +1,20 @@
+<ion-row>
+  <ng-template ngFor let-app [ngForOf]="apps" let-i="index">
+    <div [ngStyle]="app.onTopStyle()" ngDraggable>
+      <div class="app-icon" [ngStyle]="app.checkStatus()" (click)="app.previewToggle()">
+        <img src={{app.imgUrl}} />
+        <span>{{app.name}}</span>
+      </div>
+      <!-- <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)"></iframe> -->
+      <div class="app-previewer" [ngStyle]="app.previewStyle()">
+        <div class="widget-bar">{{app.name}}
+          <span class="widget-control" (click)="app.previewToggle()">
+            <ion-icon name="close-circle"></ion-icon>
+          </span>
+        </div>
+        <object type="text/html" [data]="app.url">
+        </object>
+      </div>
+    </div>
+  </ng-template>
+</ion-row>
