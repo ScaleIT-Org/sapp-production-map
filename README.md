@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/ScaleIT-Org/media-ressources/master/logo/scaleit-logo.png" width="20%"/>
 
-# Ionic App Skeleton
+# Production Map App
 
 The Ionic App Skeleton is a pre-configured base for ScaleIT Apps. It provides a ready to use production ready scaffolding for ScaleIT Ready Apps.
 
@@ -83,3 +83,8 @@ Reactive Manifesto: https://www.reactivemanifesto.org/
 Reactive Programming: https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
 
 Ionic Presentation: http://ionicframework.com/present-ionic/slides/#/26
+
+
+-----
+
+(C) ScaleIT, KIT. MIT license.
