@@ -4,42 +4,31 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
-import { File } from '@ionic-native/file';
-import { Camera } from '@ionic-native/camera';
-import { FileChooser } from '@ionic-native/file-chooser';
-
-
-import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { AbsoluteDrag } from '../directives/absolute-drag/absolute-drag';
-
-
+import { ScaleITDomainApp } from './app.component';
+import { HomePageModule } from '../pages/home/home.module';
+import { HttpDataProvider } from '../providers/http-data/http-data';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
-	AbsoluteDrag
-  ],
+  // somehow ionicons get busted when doing lazy loaded pages (declare HomePage here and they work)
+  declarations: [ScaleITDomainApp],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(ScaleITDomainApp, {
+      //not working
+      backButtonText: ""
+    }),
+    // because the root page component is lazy loaded, it must be imported in the root module
+    HomePageModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage
-  ],
+  entryComponents: [ScaleITDomainApp],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-	FileTransfer,
-    FileTransferObject,
-    File,
-    Camera,
-	FileChooser
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    HttpDataProvider
   ]
 })
 export class AppModule {}

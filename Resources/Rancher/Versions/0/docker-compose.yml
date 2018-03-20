@@ -1,0 +1,6 @@
+version: '2'
+services:
+    my-ionic-domain-app:
+        image: myi40app:latest
+        ports:
+          - "8100:8100"

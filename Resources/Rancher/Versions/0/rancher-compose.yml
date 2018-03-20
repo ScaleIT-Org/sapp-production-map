@@ -1,0 +1,6 @@
+version: '2'
+
+catalog:
+  name: "scaleit-ionic-domain-app-skeleton"
+  version: "latest"
+  description: "Ionic powered Domain App Skeleton"

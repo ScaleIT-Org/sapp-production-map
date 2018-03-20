@@ -1,39 +1,39 @@
-<ion-header absolute-drag>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+<ion-header>
+  <!-- Passing Data into the app-header component (for one way binding) -->
+  <app-header pageName="User Page"></app-header>
 </ion-header>
 
 <ion-content padding>
 
-	<ion-item>
-		<button ion-button color="secondary" (click)="getImage()">Get Map</button>
-	</ion-item>
-	
-	<ion-item>
-		
-	<img src="https://png.icons8.com/color/50/000000/gitlab.png" startLeft="20"  absolute-drag />
-	
-	<img src="https://png.icons8.com/windows/50/000000/firewall.png" startLeft="150"  absolute-drag />
+  <ion-card>
+    <ion-card-header>
+      Apps
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ng-template ngFor let-app [ngForOf]="apps" let-i="index">
+          <div class="app-icon" [ngStyle]="app.checkStatus()" ngDraggable>
 
-	<img src="https://png.icons8.com/color/50/000000/sql.png"  startLeft="270" absolute-drag/>
 
-	<img src="https://png.icons8.com/color/50/000000/debian.png"  startLeft="300" absolute-drag/>
+            <img src={{app.imgUrl}} />
+            <span>{{app.name}}</span>
+          </div>
+        </ng-template>
+      </ion-row>
+    </ion-card-content>
 
-	<img src="https://png.icons8.com/color/50/000000/sql.png"  absolute-drag/>
-	
-	<img src="https://png.icons8.com/color/50/000000/gitlab.png" absolute-drag />
-	
-	<img src="https://png.icons8.com/color/50/000000/debian.png"   absolute-drag/>
-	
-	<img src="https://png.icons8.com/color/50/000000/debian.png"  absolute-drag/>
-	<img src="{{imageURI}}" width="1000" />
+    <ion-card-header>
+      Shop Floor Production Map
+    </ion-card-header>
+    <ion-card-content>
+      <img src="assets/imgs/grundriss.png" />
+    </ion-card-content>
+  </ion-card>
 
-	</ion-item>
-	
 
-	
-	
+
 </ion-content>
+
+<ion-footer>
+  <app-footer></app-footer>
+</ion-footer>

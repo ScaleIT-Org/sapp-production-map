@@ -1,0 +1,25 @@
+<ion-header>
+  <app-header pageName="Administration Page"></app-header>
+</ion-header>
+
+<ion-content padding>
+  Administration
+  <ion-card>
+    <ion-card-header>
+      API Endpoint
+    </ion-card-header>
+
+    <ion-card-content>
+      <input type="text" [(ngModel)]="dataProvider.baseUrl">
+      <p>
+        <ion-note item-start>
+          Currently loading data from {{dataProvider.baseUrl}}
+        </ion-note>
+      </p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <app-footer></app-footer>
+</ion-footer>

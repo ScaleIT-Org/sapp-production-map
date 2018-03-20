@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +13,32 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.ios,
+.md {
+  .scroll-content {
+    background-color: map-get($colors, light);
+  }
+  ion-card-header {
+    font-weight: bold;
+  }
+  .button {
+    background: map-get($colors, gray);
+  }
+  .button.active {
+    background: map-get($colors, primary);
+  }
+
+  ion-footer {
+    background-color: lightgray;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+  .ng-draggable {
+    cursor: move;
+  }
+
+  body {
+    user-select: text;
+  }
+}
