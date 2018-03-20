@@ -83,6 +83,10 @@ Reactive Programming: https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
 
 Ionic Presentation: http://ionicframework.com/present-ionic/slides/#/26
 
+-----
+### Sources
+
+Grundriss - Grafik: ETA Fabrik, Dietz Joppien Architekten AG, Modellfabrik TU Darmstadt: https://www.detail.de/artikel/gelungenes-zusammenspiel-modellfabrik-der-tu-darmstadt-30206/
 
 -----
 
