@@ -20,5 +20,6 @@ export class HomePage {
     this.apps.push(new App("VisApp", "localhost:3000", AppStatus.Up, "/assets/imgs/vis-app.png"));
     this.apps.push(new App("AOI Digital Twin 1", "localhost:3001", AppStatus.Up, "/assets/imgs/machine-app.png"));
     this.apps.push(new App("test-app", "google.com", AppStatus.Down));
+    this.apps.push(new App("test-app2", "google.com"));
   }
 }

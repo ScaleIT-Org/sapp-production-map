@@ -2,7 +2,7 @@ page-home {
   .app-icon {
     width: 7vw;
     border: thick solid;
-    border-color: map-get($colors, secondary);
+    border-color: map-get($colors, disabled);
     background-color: white;
     text-align: center;
   }
