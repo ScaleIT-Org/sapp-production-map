@@ -18,11 +18,11 @@ Skeleton Functionality:
 
 | Mobile        | Desktop       |
 | ------------- | ------------- |
-| <img src="https://github.com/ScaleIT-Org/ionic-app-skeleton/blob/master/Resources/Store/Screenshots/Mobile%20Main%20Page.png?raw=true"/> | <img src="https://github.com/ScaleIT-Org/ionic-app-skeleton/blob/master/Resources/Store/Screenshots/Desktop%20Main%20Page.png?raw=true"/> |
+| <img src="Resources/Store/Screenshots/Mobile%20Main%20Page.png?raw=true"/> | <img src="Resources/Store/Screenshots/Desktop%20Main%20Page.png?raw=true"/> |
 
 |Administration view with configurable endpoints|
 | ------------- |
-| <img width="50%" src="https://github.com/ScaleIT-Org/ionic-app-skeleton/blob/master/Resources/Store/Screenshots/Administration.png?raw=true"/> |
+| Not implemented yet |
 
 ## Technology Stack
     Node.js->(Typescript->Angular->Ionic)
