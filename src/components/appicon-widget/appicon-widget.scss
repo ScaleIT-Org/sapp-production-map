@@ -41,4 +41,17 @@ appicon-widget {
   .widget-control {
     float: right;
   }
+
+  .smoke-screen-modal-on {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(128, 128, 150, 0.5);
+    z-index: 75;
+  }
+  .smoke-screen-modal-off {
+    display: none;
+  }
 }
