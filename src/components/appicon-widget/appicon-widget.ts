@@ -24,21 +24,20 @@ export class AppiconWidgetComponent {
     this.apps.push(
       new App(
         "Ionic App",
-        // this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:8100"),
-        this.sanitizer.bypassSecurityTrustResourceUrl("https://google.com"),
+        this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
         AppStatus.Up,
         "/assets/imgs/vis-app.png"
       )
-    );
+    ); // this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:8100"),
     this.apps.push(
       new App(
-        "AOI Machine", // this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:3000"),
-        this.sanitizer.bypassSecurityTrustResourceUrl("https://google.com"),
+        "AOI Machine",
+        this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
         AppStatus.Up,
         "/assets/imgs/machine-app.png",
         "right"
       )
-    );
+    ); // this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:3000"),
     // this.apps.push(
     //   new App("test-app", "http://localhost:3000/", AppStatus.Down)
     // );
