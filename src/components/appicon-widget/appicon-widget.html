@@ -1,8 +1,8 @@
-<!-- <div class="smoke-screen-modal-on"></div> -->
+<div id="smoke-screen" class="smoke-screen-modal-on" hide-on-click [hidden]="smokescreen" (click)="hideMe($event)" (onStatusChange)="hideMe($event)"></div>
 <ion-row>
   <ng-template ngFor let-app [ngForOf]="apps" let-i="index">
     <div [ngStyle]="app.onTopStyle()" ngDraggable>
-      <div class="app-icon" [ngStyle]="app.checkStatus()" (click)="app.previewToggle()">
+      <div class="app-icon" [ngStyle]="app.checkStatus()" (click)="previewHandler(app)">
         <img src={{app.imgUrl}} />
         <span>{{app.name}}</span>
       </div>
@@ -13,7 +13,7 @@
             <ion-icon name="close-circle"></ion-icon>
           </span>
         </div>
-        <object type="text/html" [data]="app.url">
+        <object type="text/html" [data]="app.url" ngDraggable>
         </object>
       </div>
     </div>

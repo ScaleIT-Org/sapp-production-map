@@ -1,6 +1,6 @@
 version: '2'
 
 catalog:
-  name: "scaleit-ionic-domain-app-skeleton"
+  name: "de-kit-production-map-app"
   version: "latest"
-  description: "Ionic powered Domain App Skeleton"
+  description: "Production Map App"

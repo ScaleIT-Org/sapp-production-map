@@ -1,6 +1,6 @@
 version: '2'
 services:
-    my-ionic-domain-app:
-        image: myi40app:latest
+    de-kit-production-map-app:
+        image: scaleit-app-pool.ondics.de:5000/scaleit-app-pool/de-kit-production-map-app:1.0
         ports:
-          - "8100:8100"
+          - "51100:80"

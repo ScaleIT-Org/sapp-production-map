@@ -87,4 +87,9 @@ Ionic Presentation: http://ionicframework.com/present-ionic/slides/#/26
 
 -----
 
+Sources:
+Map App Store Icon: Icon made from <a href="http://www.onlinewebfonts.com/icon">Icon Fonts</a> is licensed by CC BY 3.0
+
+-----
+
 (C) ScaleIT, KIT. MIT license.

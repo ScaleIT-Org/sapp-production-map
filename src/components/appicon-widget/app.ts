@@ -1,4 +1,5 @@
 import { SafeResourceUrl } from "@angular/platform-browser";
+import { Output, EventEmitter } from "@angular/core";
 
 export enum AppStatus {
   Up = 1,
@@ -8,16 +9,25 @@ export enum AppStatus {
 }
 
 export class App {
+  constructor();
   constructor(
-    public name: string,
-    public url: SafeResourceUrl,
+    public name?: string,
+    public url?: SafeResourceUrl,
     public status: AppStatus = AppStatus.Disabled,
     public imgUrl: string = "assets/imgs/scaleit-waben.png",
-    public previewPosition: string = "left"
+    public previewPosition: string = "left",
+    public iconLocalHelper: string = ""
   ) {}
 
-  private previewing: boolean;
+  public previewing: boolean;
 
+  updateMissingRemoteIcons() {
+    // if (this.imgUrl === "assets/imgs/scaleit-waben.png") {
+      if (this.iconLocalHelper != "") {
+        this.imgUrl = "assets/imgs/icons/" + this.iconLocalHelper + ".png";
+      }
+    // }
+  }
   checkStatus() {
     let result: string;
     switch (this.status) {

@@ -1,6 +1,7 @@
 version: '2'
 services:
-   scaleit-ionic-app:
+   de-kit-production-map-app:
+        image: scaleit-app-pool.ondics.de:5000/scaleit-app-pool/de-kit-production-map-app:1.0
         build: .
         ports:
-          - "8100:80"
+          - "51100:80"

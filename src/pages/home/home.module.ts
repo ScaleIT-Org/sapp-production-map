@@ -1,3 +1,4 @@
+import { DirectivesModule } from './../../directives/directives.module';
 import { NgModule } from "@angular/core";
 import { IonicPageModule, IonicModule } from "ionic-angular";
 import { HomePage } from "./home";
@@ -10,7 +11,8 @@ import { PipesModule } from "../../pipes/pipes.module";
   imports: [
     IonicPageModule.forChild(HomePage),
     ComponentsModule,
-    PipesModule
+    PipesModule,
+    DirectivesModule
   ],
   bootstrap: [HomePage]
 })

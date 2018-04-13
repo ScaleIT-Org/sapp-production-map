@@ -1,2 +1,4 @@
 node_modules/
 Resources
+Dockerfile
+docker-compose.yml
