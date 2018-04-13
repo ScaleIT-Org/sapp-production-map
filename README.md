@@ -2,18 +2,16 @@
 
 # Production Map App
 
-The Ionic App Skeleton is a pre-configured base for ScaleIT Apps. It provides a ready to use production ready scaffolding for ScaleIT Ready Apps.
+The Production Map App helps bridge the virtual-physical barrier between software entities and the real world that they control or interact with. It allows the user to locate Apps on the shop floor more easily and thus explore it in a more pleasant and transparent way.
 
 Give it a try:
 
     docker-compose up
     # navigate to localhost:8100
 
-Skeleton Functionality:
+App Functionality:
 
 1) Ionic frontend with Angular
-2) Pages and Navigation
-2) Data Providers and Pipes
 2) Nginx Server for serving the built project (docker build only)
 
 | Mobile        | Desktop       |
@@ -23,6 +21,14 @@ Skeleton Functionality:
 |Administration view with configurable endpoints|
 | ------------- |
 | Not implemented yet |
+
+# Background
+
+Software is mostly invisible for the shop floor. Different systems are hidden behind a benigng HMI and they never come to the light of day. In the ScaleIT approach, each App has it's own HMI and thus brings transparency to the software landscape. In order to intuitively locate Apps on a physica level we (the KIT) developed this shop floor map visualization (Production Map App) as part of the free and open source reference implementation of the ScaleIT platform. By using this App, a simple mapping of the physical world (sensors, machines, etc.) to their digital representation (Apps) is possible. The digital twin (as an App) can thus be displayed next to the real machine and the user can interact with it via its web HMI.
+
+Deutsch:
+
+Software ist meist unsichtbar für den betrieblichen Hallenboden. Hinter einer HMI verbergen sich oft unterschiedliche Systeme, die nie zum Vorschein kommen. Im ScaleIT Ansatz besitzt jede App eine HMI und bringt dadurch Transparenz in die Software-Landschaft. Um auch die physikalische Verortung intuitiv zu ermöglichen entwickelt das KIT eine Kartenvisualisierung (Production-Map-App) als Teil der freien und offenen Referenzimplementierung der ScaleIT Plattform. Mit dieser Karten App wird ein einfaches Mapping der physichen Welt (Sensoren, Maschinen, usw.) zur digitalen Repräsentation (Apps) ermöglicht. Der digitale Zwilling (als App) kann so neben der echten Maschine dargestellt und damit über dessen Web-HMI interagiert werden.
 
 ## Technology Stack
     Node.js->(Typescript->Angular->Ionic)
@@ -38,7 +44,7 @@ Skeleton Functionality:
 
 ## Usage (Docker)
 
-This skeleton uses a multi stage build in order to create a very small production ready image. This results in an image size of about 70MB compared to the 300+MB size of the build image.
+This app uses a multi stage build in order to create a very small production ready image. This results in an image size of about 70MB compared to the 300+MB size of the build image.
 
 Docker Compose:
 
@@ -69,13 +75,6 @@ Alternatively use cherry picking (or patching):
         HEALTHCHECK --interval=5m --timeout=3s \
         CMD curl -f http://localhost:5002/ || exit 1
         
-## Navigation and Pages
-## Data Providers
-## Bindings (Two-Way & One-Way)
-## Pipes
-
-TODO: tutorials 
-
 ## Learning Material
 
 Reactive Manifesto: https://www.reactivemanifesto.org/
@@ -84,6 +83,10 @@ Reactive Programming: https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
 
 Ionic Presentation: http://ionicframework.com/present-ionic/slides/#/26
 
+-----
+### Sources
+
+Grundriss - Grafik: ETA Fabrik, Dietz Joppien Architekten AG, Modellfabrik TU Darmstadt: https://www.detail.de/artikel/gelungenes-zusammenspiel-modellfabrik-der-tu-darmstadt-30206/
 
 -----
 
