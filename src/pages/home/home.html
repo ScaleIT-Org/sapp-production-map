@@ -4,6 +4,11 @@
 </ion-header>
 
 <ion-content padding>
+  <input
+    style="display: none"
+    type="file" (change)="onFileChanged($event)"
+    #fileInput>
+  <button ion-button (click)="fileInput.click()">Select Map</button>
 
   <ion-card>
     <ion-card-content>
@@ -11,7 +16,7 @@
     </ion-card-content>
 
     <ion-card-content>
-      <img src="assets/imgs/grundriss.png" />
+      <img [src]="logo" />
     </ion-card-content>
   </ion-card>
 

@@ -15,5 +15,12 @@ import { AngularDraggableModule } from "angular2-draggable";
   exports: [AppFooterComponent, AppHeaderComponent, AppiconWidgetComponent]
 })
 export class ComponentsModule {
+
+
   constructor() {}
+
+
+
 }
+
+
