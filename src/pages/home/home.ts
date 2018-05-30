@@ -13,12 +13,13 @@ import { NavController } from 'ionic-angular';
 export class HomePage {
 
   selectedFile: File;
-  logo = "assets/imgs/grundriss.png";
+  logo: any;
   reader: FileReader;
 
 
   constructor(public navCtrl: NavController) {
     this.reader = new FileReader();
+    this.logo = "assets/imgs/grundriss.png";
   }
 
   onFileChanged(event) {

@@ -26,31 +26,31 @@ export class AppiconWidgetComponent {
 
   ngAfterViewInit() {
     this.apps = new Array();
-    this.getData("");
-    // this.apps.push(
-    //   new App(
-    //     "Ionic App",
-    //     this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
-    //     AppStatus.Up,
-    //     "/assets/imgs/vis-app.png"
-    //   )
-    // ); // this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:8100"),
-    // this.apps.push(
-    //   new App(
-    //     "AOI Machine",
-    //     this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
-    //     AppStatus.Up,
-    //     "/assets/imgs/machine-app.png",
-    //     "right"
-    //   )
-    // ); // this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:3000"),
-    // this.apps.push(
-    //   new App("test-app", "http://localhost:3000/", AppStatus.Down)
-    // );
-    // this.apps.push(
-    //   new App("test-app2", "http://localhost:3000/", AppStatus.Warning)
-    // );
-    // this.apps.push(new App("test-app3", "http://localhost:8100"));
+    //this.getData("");
+    this.apps.push(
+      new App(
+        "Ionic App",
+        this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
+        AppStatus.Up,
+        "/assets/imgs/vis-app.png"
+      )
+    ); // this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:8100"),
+    this.apps.push(
+      new App(
+        "AOI Machine",
+        this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
+        AppStatus.Up,
+        "/assets/imgs/machine-app.png",
+        "right"
+      )
+    ); // this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:3000"),
+    this.apps.push(
+      new App("test-app", "http://localhost:3000/", AppStatus.Down)
+    );
+    this.apps.push(
+      new App("test-app2", "http://localhost:3000/", AppStatus.Warning)
+    );
+    this.apps.push(new App("test-app3", "http://localhost:8100"));
   }
 
   public log(text: string) {
@@ -78,7 +78,7 @@ export class AppiconWidgetComponent {
     app.previewToggle();
   }
 
-  getData(path: string) {
+  /*getData(path: string) {
     let dataObserver = this.dataProvider.getData(path);
 
     dataObserver.subscribe(dataFromProvider => {
@@ -114,5 +114,5 @@ export class AppiconWidgetComponent {
       this.apps = myapps;
       // console.log("Data filtered:" + this.testData);
     });
-  }
+  }*/
 }

@@ -8,7 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 })
 export class ScaleITDomainApp {
 
-  rootPage:any = 'user';
+  rootPage:any = 'menu';
 
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {

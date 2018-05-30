@@ -31,7 +31,7 @@ export class AdministrationPage {
     console.log("ionViewDidLoad AdministrationPage");
   }
 
-  getData(path: string) {
+  /*getData(path: string) {
     let dataObserver = this.dataProvider.getData(path);
 
     dataObserver.subscribe(dataFromProvider => {
@@ -66,5 +66,5 @@ export class AdministrationPage {
       this.testData = myapps;
       console.log("Data filtered:" + this.testData);
     });
-  }
+  }*/
 }

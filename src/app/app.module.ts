@@ -5,9 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { ScaleITDomainApp } from './app.component';
-import { HomePageModule } from '../pages/home/home.module';
 import { HttpDataProvider } from '../providers/http-data/http-data';
 import { HttpClientModule } from '@angular/common/http';
+import {MenuPageModule} from "../pages/menu/menu.module";
 
 @NgModule({
   // somehow ionicons get busted when doing lazy loaded pages (declare HomePage here and they work)
@@ -19,8 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
       backButtonText: ""
     }),
     // because the root page component is lazy loaded, it must be imported in the root module
-    HomePageModule,
-    HttpClientModule
+    HttpClientModule,
+    MenuPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [ScaleITDomainApp],
