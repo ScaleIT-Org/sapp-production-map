@@ -4,6 +4,8 @@
 </ion-header>
 
 <ion-content padding>
+
+  <!-- hide the input field to show the "select map" button only -->
   <input
     style="display: none"
     type="file" (change)="onFileChanged($event)"
@@ -15,8 +17,9 @@
       <appicon-widget></appicon-widget>
     </ion-card-content> -->
 
+    <!-- show the photo of the selected map -->
     <ion-card-content>
-      <img [src]="logo" />
+      <img [src]="selectedMap" />
     </ion-card-content>
   </ion-card>
 

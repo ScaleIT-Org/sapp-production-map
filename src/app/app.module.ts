@@ -8,6 +8,7 @@ import { ScaleITDomainApp } from './app.component';
 import { HttpDataProvider } from '../providers/http-data/http-data';
 import { HttpClientModule } from '@angular/common/http';
 import {MenuPageModule} from "../pages/menu/menu.module";
+import {WebStorageModule} from "ngx-store";
 
 @NgModule({
   // somehow ionicons get busted when doing lazy loaded pages (declare HomePage here and they work)
@@ -20,7 +21,8 @@ import {MenuPageModule} from "../pages/menu/menu.module";
     }),
     // because the root page component is lazy loaded, it must be imported in the root module
     HttpClientModule,
-    MenuPageModule
+    MenuPageModule,
+    WebStorageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [ScaleITDomainApp],

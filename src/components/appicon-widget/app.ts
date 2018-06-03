@@ -11,7 +11,8 @@ export enum AppStatus {
 export class App {
   constructor(
     public name: string,
-    public url: SafeResourceUrl,
+    //public url: SafeResourceUrl,
+    public url: string,
     public status: AppStatus = AppStatus.Disabled,
     public imgUrl: string = "assets/imgs/scaleit-waben.png",
     public previewPosition: string = "left",

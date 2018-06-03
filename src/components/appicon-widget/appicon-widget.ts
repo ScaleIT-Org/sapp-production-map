@@ -19,7 +19,8 @@ export class AppiconWidgetComponent {
   apps: App[];
   public smokescreen: boolean = false;
 
-  constructor(public sanitizer: DomSanitizer, private dataProvider: HttpDataProvider) {
+  //constructor(public sanitizer: DomSanitizer, private dataProvider: HttpDataProvider) {
+  constructor(private dataProvider: HttpDataProvider) {
     console.log("Initializing App Icons...");
     this.smokescreen = false;
   }
@@ -30,7 +31,8 @@ export class AppiconWidgetComponent {
     this.apps.push(
       new App(
         "Ionic App",
-        this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
+        "codecraft.tv",
+        //this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
         AppStatus.Up,
         "/assets/imgs/vis-app.png"
       )
@@ -38,19 +40,20 @@ export class AppiconWidgetComponent {
     this.apps.push(
       new App(
         "AOI Machine",
-        this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
+        "codecraft.tv",
+        //this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
         AppStatus.Up,
         "/assets/imgs/machine-app.png",
         "right"
       )
     ); // this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:3000"),
     this.apps.push(
-      new App("test-app", "http://localhost:3000/", AppStatus.Down)
+      new App("test-app", "localhost:3000/", AppStatus.Down)
     );
     this.apps.push(
-      new App("test-app2", "http://localhost:3000/", AppStatus.Warning)
+      new App("test-app2", "localhost:3000/", AppStatus.Warning)
     );
-    this.apps.push(new App("test-app3", "http://localhost:8100"));
+    this.apps.push(new App("test-app3", "localhost:8100"));
   }
 
   public log(text: string) {
