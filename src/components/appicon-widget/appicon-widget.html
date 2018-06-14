@@ -15,8 +15,9 @@
             <ion-icon name="close-circle"></ion-icon>
           </span>
         </div>
-        <object type="text/html" [data]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ngDraggable>
-        </object>
+        <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ngDraggable></iframe>
+       <!-- <object type="text/html" [data]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ngDraggable></object>-->
+
       </div>
     </div>
   </ng-template>
