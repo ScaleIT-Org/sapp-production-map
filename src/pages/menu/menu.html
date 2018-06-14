@@ -19,8 +19,13 @@
         <ion-icon item-start [name]="p.icon"></ion-icon>
       </button>
 
-
     </ion-list>
+
+    <ion-item>
+      <ion-label>Scrolling</ion-label>
+      <ion-toggle [(ngModel)]="isScrollingDisabled" (click)="toggleScrolling()"  ></ion-toggle>
+    </ion-item>
+
   </ion-content>
 </ion-menu>
 

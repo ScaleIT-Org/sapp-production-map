@@ -3,7 +3,8 @@
   <app-header pageName=""></app-header>
 </ion-header>
 
-<ion-content padding>
+
+<ion-content padding [ngClass]="checkScrollVariable() ? 'no-class' : 'no-scroll' ">
 
   <!-- hide the input field to show the "select map" button only -->
   <input
@@ -13,11 +14,11 @@
   <button ion-button (click)="fileInput.click()">Select Map</button>
 
   <ion-card>
-    <!--<ion-card-content>
+    <ion-card-content>
       <appicon-widget></appicon-widget>
-    </ion-card-content> -->
+    </ion-card-content>
 
-    <!-- show the photo of the selected map -->
+    <!-- show a photo of the selected map -->
     <ion-card-content>
       <img [src]="selectedMap" />
     </ion-card-content>
