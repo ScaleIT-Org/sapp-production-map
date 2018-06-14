@@ -1,9 +1,9 @@
-import { HttpDataProvider } from './../../providers/http-data/http-data';
+import {HttpDataProvider} from './../../providers/http-data/http-data';
 import {
   Component
 } from "@angular/core";
-import { App, AppStatus } from "./app";
-import { DomSanitizer } from "@angular/platform-browser";
+import {App, AppStatus} from "./app";
+import {DomSanitizer} from "@angular/platform-browser";
 
 /**
  * Generated class for the AppiconWidgetComponent component.
@@ -19,10 +19,12 @@ export class AppiconWidgetComponent {
   apps: App[];
   public smokescreen: boolean = false;
 
-  //constructor(public sanitizer: DomSanitizer, private dataProvider: HttpDataProvider) {
-  constructor(private dataProvider: HttpDataProvider) {
+  constructor(public sanitizer: DomSanitizer, private dataProvider: HttpDataProvider) {
+    //constructor(private dataProvider: HttpDataProvider) {
     console.log("Initializing App Icons...");
     this.smokescreen = false;
+
+
   }
 
   ngAfterViewInit() {
@@ -31,7 +33,7 @@ export class AppiconWidgetComponent {
     this.apps.push(
       new App(
         "Ionic App",
-        "codecraft.tv",
+        "https://codecraft.tv",
         //this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
         AppStatus.Up,
         "/assets/imgs/vis-app.png"
@@ -40,7 +42,7 @@ export class AppiconWidgetComponent {
     this.apps.push(
       new App(
         "AOI Machine",
-        "codecraft.tv",
+        "https://codecraft.tv",
         //this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
         AppStatus.Up,
         "/assets/imgs/machine-app.png",
@@ -81,7 +83,8 @@ export class AppiconWidgetComponent {
     app.previewToggle();
   }
 
-  /*getData(path: string) {
+  /*
+  getData(path: string) {
     let dataObserver = this.dataProvider.getData(path);
 
     dataObserver.subscribe(dataFromProvider => {
