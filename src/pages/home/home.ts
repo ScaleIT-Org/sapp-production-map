@@ -2,6 +2,7 @@ import { IonicPage, Events } from 'ionic-angular';
 import {Component} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {LocalStorage} from "ngx-store";
+import { LocalstorageProvider } from "../../providers/localstorage/localstorage";
 
 /**
  * The home page, that will be rooted from menu-page (which is the root page in this app).
@@ -16,7 +17,6 @@ import {LocalStorage} from "ngx-store";
   templateUrl: 'home.html'
 })
 export class HomePage {
-  sharedIsScrollingDisabled: boolean;
 
   selectedFile: File;
 
@@ -26,12 +26,10 @@ export class HomePage {
   reader: FileReader;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              public events: Events, public localstorageProvider: LocalstorageProvider) {
     this.reader = new FileReader();
     this.selectedMap = "assets/imgs/grundriss.png"; //set a default map to show until user selects something else
-    this.events.subscribe('sharedObject', (testbool) => {
-      this.sharedIsScrollingDisabled = testbool;
-    });
   }
 
   /**
@@ -43,18 +41,13 @@ export class HomePage {
     this.reader.onload = (e: any) => {
       this.selectedMap = e.target.result;
     }
+
     console.log(this.selectedMap);
     this.reader.readAsDataURL(event.target.files[0]);
   }
 
-
-  /*checkSharedVariable() {
-    this.sharedIsScrollingDisabled = this.navParams.get('data');
-    return this.sharedIsScrollingDisabled;
-  }*/
-
-  checkScrollVariable() {
-    return this.sharedIsScrollingDisabled;
+  isScrollingEnabled() {
+    return this.localstorageProvider.getIsScrollingEnabled()
   }
 
 }
