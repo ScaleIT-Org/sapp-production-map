@@ -9,7 +9,6 @@ import { HttpDataProvider } from '../providers/http-data/http-data';
 import { HttpClientModule } from '@angular/common/http';
 import {MenuPageModule} from "../pages/menu/menu.module";
 import {WebStorageModule} from "ngx-store";
-import { LocalstorageProvider } from '../providers/localstorage/localstorage';
 
 @NgModule({
   // somehow ionicons get busted when doing lazy loaded pages (declare HomePage here and they work)
@@ -31,8 +30,7 @@ import { LocalstorageProvider } from '../providers/localstorage/localstorage';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    HttpDataProvider,
-    LocalstorageProvider
+    HttpDataProvider
   ]
 })
 export class AppModule {}

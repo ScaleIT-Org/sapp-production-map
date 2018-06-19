@@ -1,15 +1,16 @@
-import { IonicPage, Events } from 'ionic-angular';
+import {IonicPage, Events,ModalController} from 'ionic-angular';
 import {Component} from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import {LocalStorage} from "ngx-store";
-import { LocalstorageProvider } from "../../providers/localstorage/localstorage";
+
+//import { LocalstorageProvider } from "../../providers/localstorage/localstorage";
 
 /**
  * The home page, that will be rooted from menu-page (which is the root page in this app).
  * Here the user has an ability to select a map one needs
  */
 @IonicPage({
-  name:"user",
+  name: "user",
   segment: "user"
 })
 @Component({
@@ -27,7 +28,7 @@ export class HomePage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public events: Events, public localstorageProvider: LocalstorageProvider) {
+              public events: Events, public modalCtrl: ModalController) {
     this.reader = new FileReader();
     this.selectedMap = "assets/imgs/grundriss.png"; //set a default map to show until user selects something else
   }
@@ -47,7 +48,12 @@ export class HomePage {
   }
 
   isScrollingEnabled() {
-    return this.localstorageProvider.getIsScrollingEnabled()
+    //return this.localstorageProvider.getIsScrollingEnabled()
+  }
+
+  presentModal() {
+    let modal = this.modalCtrl.create('ModalPage');
+    modal.present();
   }
 
 }

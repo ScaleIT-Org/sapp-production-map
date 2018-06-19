@@ -1,0 +1,32 @@
+<!--
+  Generated template for the ModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>App Catalog</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let app of apps" col-4>
+        <ion-card class="app-name" onmouseover="style.fontWeight='bold'" onmouseout="style.fontWeight='normal'"
+                  (click)="addApp(app)">
+
+            <img src={{app.imgUrl}}>
+            <span>{{app.name}}</span>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

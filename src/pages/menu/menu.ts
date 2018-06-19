@@ -3,7 +3,6 @@ import {IonicPage, NavController, NavParams, Nav, MenuController, Events} from '
 import {HomePage} from "../home/home";
 import {AdministrationPage} from "../administration/administration";
 import {LocalStorage} from "ngx-store";
-import {LocalstorageProvider} from "../../providers/localstorage/localstorage";
 
 /**
  * Generated class for the MenuPage page.
@@ -30,8 +29,7 @@ export class MenuPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public menuCtrl: MenuController,
-              public events: Events,
-              public localStorageProvider: LocalstorageProvider) {
+              public events: Events) {
     this.pages = [
       {title: 'Home', component: HomePage, icon: 'home'},
       {title: 'Admin', component: AdministrationPage, icon: 'construct'}
@@ -43,7 +41,7 @@ export class MenuPage {
   }
 
   toggleScrolling() {
-    this.localStorageProvider.setIsScrollingEnabled(!this.localStorageProvider.getIsScrollingEnabled())
+
   }
 
 

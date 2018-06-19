@@ -4,6 +4,7 @@ import {
 } from "@angular/core";
 import {App, AppStatus} from "./app";
 import {DomSanitizer} from "@angular/platform-browser";
+import {SharedStorage} from "ngx-store";
 
 /**
  * Generated class for the AppiconWidgetComponent component.
@@ -16,6 +17,7 @@ import {DomSanitizer} from "@angular/platform-browser";
   templateUrl: "appicon-widget.html"
 })
 export class AppiconWidgetComponent {
+  @SharedStorage('chosenApps') chosenApps: Array<App>;
   apps: App[];
   public smokescreen: boolean = false;
 
