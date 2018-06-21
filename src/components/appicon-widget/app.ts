@@ -1,5 +1,5 @@
-import { SafeResourceUrl } from "@angular/platform-browser";
-import { Output, EventEmitter } from "@angular/core";
+import {SafeResourceUrl} from "@angular/platform-browser";
+import {Output, EventEmitter} from "@angular/core";
 
 export enum AppStatus {
   Up = 1,
@@ -17,18 +17,20 @@ export class App {
     public imgUrl: string = "assets/imgs/scaleit-waben.png",
     public previewPosition: string = "left",
     public iconLocalHelper: string = ""
-  ) {}
+  ) {
+  }
 
   public previewing: boolean;
 
   updateMissingRemoteIcons() {
     // if (this.imgUrl === "assets/imgs/scaleit-waben.png") {
-      if (this.iconLocalHelper != "") {
-        this.imgUrl = "assets/imgs/icons/" + this.iconLocalHelper + ".png";
-      }
+    if (this.iconLocalHelper != "") {
+      this.imgUrl = "assets/imgs/icons/" + this.iconLocalHelper + ".png";
+    }
     // }
   }
-  checkStatus() {
+
+  setBackground() {
     let result: string;
     switch (this.status) {
       case AppStatus.Up:
@@ -45,30 +47,40 @@ export class App {
         result = "gray";
         break;
     }
-    return { "border-color": result };
-  }
-
-  previewToggle() {
-    if (this.previewing == false) {
-      this.previewing = true;
-    } else this.previewing = false;
-  }
-
-  previewStyle() {
-    let result = this.previewing ? "block" : "none";
-    switch (this.previewPosition) {
-      case "left":
-        return { display: result, left: "7vw" };
-      case "right":
-        return { display: result, right: "7vw" };
-      default:
-        return { display: result };
+    return {
+      "border-color": result,
+      "background-image": 'url(' + this.imgUrl + ')',
+      "background-repeat": 'no-repeat',
+      "background-size": 'contain'
     }
-    // return { display: result, this.previewPosition: 7vw;};
   }
 
-  onTopStyle() {
-    let result = this.previewing ? 100 : 50;
-    return { "z-index": result };
+
+
+previewToggle()
+{
+  if (this.previewing == false) {
+    this.previewing = true;
+  } else this.previewing = false;
+}
+
+previewStyle()
+{
+  let result = this.previewing ? "block" : "none";
+  switch (this.previewPosition) {
+    case "left":
+      return {display: result, left: "7vw"};
+    case "right":
+      return {display: result, right: "7vw"};
+    default:
+      return {display: result};
   }
+  // return { display: result, this.previewPosition: 7vw;};
+}
+
+onTopStyle()
+{
+  let result = this.previewing ? 100 : 50;
+  return {"z-index": result};
+}
 }
