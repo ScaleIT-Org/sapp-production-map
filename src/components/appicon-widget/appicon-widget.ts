@@ -85,6 +85,26 @@ export class AppiconWidgetComponent {
     app.previewToggle();
   }
 
+  delete(app: App) {
+    var index = this.indexOfApp(app);
+    if (index > -1) {
+      this.chosenApps.splice(index, 1);
+    }
+    for (let i = 0; i < this.chosenApps.length; i++) {
+      console.log("delete " + index + this.chosenApps[i].name);
+    }
+  }
+
+  indexOfApp(app: App): number {
+    let index = -1;
+    for (let i = 0; i < this.chosenApps.length; i++) {
+      if (app.name == this.chosenApps[i].name) {
+        index = i;
+      }
+    }
+    return index;
+  }
+
   /*
   getData(path: string) {
     let dataObserver = this.dataProvider.getData(path);

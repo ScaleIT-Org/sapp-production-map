@@ -21,7 +21,6 @@ appicon-widget {
     width:100%;
     bottom:0;
     text-align:center;
-
   }
 
   .app-previewer {
@@ -52,6 +51,9 @@ appicon-widget {
 
   .widget-control {
     float: right;
+  }
+  button{
+    background-color: lightgray;
   }
 
   .smoke-screen-modal-on {

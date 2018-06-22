@@ -8,6 +8,11 @@
 
   <ion-navbar>
     <ion-title>App Catalog</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="closeModal()">
+        <ion-icon name="close-circle"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -16,12 +21,13 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let app of apps" col-4>
+      <ion-col *ngFor="let app of apps" col-3>
         <ion-card class="app-name" onmouseover="style.fontWeight='bold'" onmouseout="style.fontWeight='normal'"
                   (click)="addApp(app)">
 
-            <img src={{app.imgUrl}}>
-            <span>{{app.name}}</span>
+          <ion-img src={{app.imgUrl}}></ion-img>
+          <span>{{app.name}}</span>
+
 
         </ion-card>
       </ion-col>

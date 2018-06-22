@@ -28,6 +28,12 @@ export class ModalPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalPage');
+    if (this.chosenApps != null) {
+      for (let i = 0; i < this.chosenApps.length; i++) {
+        console.log(this.chosenApps[i].name);
+      }
+    }
+
     this.chosenApps = new Array();
     this.apps = new Array();
     //this.getData("");
@@ -61,44 +67,51 @@ export class ModalPage {
 
   addApp(app: App) {
     this.chosenApps.push(app);
-    console.log(this.chosenApps);
+    console.log("add " + this.chosenApps);
   }
- /*
- getData(path: string) {
-   let dataObserver = this.dataProvider.getData(path);
 
-   dataObserver.subscribe(dataFromProvider => {
-     console.log("Data received:" + dataFromProvider);
+  /*
+  getData(path: string) {
+    let dataObserver = this.dataProvider.getData(path);
 
-     this.apps = dataFromProvider["node"]["nodes"].map(x => ({
-       key: x["key"].split("/")[2],
-       nodes: x["nodes"]
-         .filter(x => x["value"] != "")
-         .map(x => ({ key: x["key"].split("/")[3], value: x["value"] }))
-     }));
+    dataObserver.subscribe(dataFromProvider => {
+      console.log("Data received:" + dataFromProvider);
 
-     let myapps: App[] = new Array();
-     this.apps.forEach(app => {
-       let myapp: App = new App();
+      this.apps = dataFromProvider["node"]["nodes"].map(x => ({
+        key: x["key"].split("/")[2],
+        nodes: x["nodes"]
+          .filter(x => x["value"] != "")
+          .map(x => ({ key: x["key"].split("/")[3], value: x["value"] }))
+      }));
 
-       // use a map and make it nicer
-       let title = app["nodes"].filter(x => x["key"] === "title");
-       let iconUrl = app["nodes"].filter(x => x["key"] === "iconUrl");
-       let userUrl = app["nodes"].filter(x => x["key"] === "userUrl");
-       let name = app["nodes"].filter(x => x["key"] === "name");
-       // myapp.push(title);
-       // map(x => ({key: x["key"], }))
-       if (title[0]) myapp.name = title[0]["value"];
-       if (name[0]) myapp.iconLocalHelper = name[0]["value"];
-       if (iconUrl[0]) myapp.imgUrl = iconUrl[0]["value"];
-       if (userUrl[0]) myapp.url = this.sanitizer.bypassSecurityTrustResourceUrl(userUrl[0]["value"]);
+      let myapps: App[] = new Array();
+      this.apps.forEach(app => {
+        let myapp: App = new App();
 
-       myapp.status = AppStatus.Up;
-       myapp.updateMissingRemoteIcons();
-       myapps.push(myapp);
-     });
-     this.apps = myapps;
-     // console.log("Data filtered:" + this.testData);
-   });
- }*/
+        // use a map and make it nicer
+        let title = app["nodes"].filter(x => x["key"] === "title");
+        let iconUrl = app["nodes"].filter(x => x["key"] === "iconUrl");
+        let userUrl = app["nodes"].filter(x => x["key"] === "userUrl");
+        let name = app["nodes"].filter(x => x["key"] === "name");
+        // myapp.push(title);
+        // map(x => ({key: x["key"], }))
+        if (title[0]) myapp.name = title[0]["value"];
+        if (name[0]) myapp.iconLocalHelper = name[0]["value"];
+        if (iconUrl[0]) myapp.imgUrl = iconUrl[0]["value"];
+        if (userUrl[0]) myapp.url = this.sanitizer.bypassSecurityTrustResourceUrl(userUrl[0]["value"]);
+
+        myapp.status = AppStatus.Up;
+        myapp.updateMissingRemoteIcons();
+        myapps.push(myapp);
+      });
+      this.apps = myapps;
+      // console.log("Data filtered:" + this.testData);
+    });
+  }*/
+
+  closeModal() {
+    this.navCtrl.pop();
+
+  }
 }
+

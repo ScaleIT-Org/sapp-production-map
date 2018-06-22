@@ -10,9 +10,14 @@
       <!-- <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)"></iframe>-->
       <div class="app-previewer" [ngStyle]="app.previewStyle()">
         <div class="widget-bar">{{app.name}}
-          <span class="widget-control" (click)="app.previewToggle()">
-                  <ion-icon name="close-circle"></ion-icon>
-                </span>
+          <div class="widget-control">
+            <button icon-only (click)="delete(app)">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+            <button icon-only (click)="app.previewToggle()">
+              <ion-icon name="close-circle"></ion-icon>
+            </button>
+          </div>
         </div>
         <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ngDraggable></iframe> <!-- ngDraggable-->
         <!-- <object type="text/html" [data]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ngDraggable></object>-->
