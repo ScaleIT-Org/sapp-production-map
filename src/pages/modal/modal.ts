@@ -18,8 +18,10 @@ import {SharedStorage} from "ngx-store";
 export class ModalPage {
   apps: Array<App>;
   @SharedStorage() chosenApps: Array<App>;
+  appClicked: Array<boolean>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
   }
 
   ngAfterViewInit() {
@@ -63,11 +65,25 @@ export class ModalPage {
       new App("test-app2", "localhost:3000/", AppStatus.Warning)
     );
     this.apps.push(new App("test-app3", "localhost:8100"));
+
+    this.appClicked = new Array(this.apps.length);
+    for (let i = 0; i < this.apps.length; i++) {
+      this.appClicked[i] = false;
+    }
   }
 
-  addApp(app: App) {
-    this.chosenApps.push(app);
-    console.log("add " + this.chosenApps);
+  addApp(i: number) {
+    //this.chosenApps.push(app);
+    this.appClicked[i] = !this.appClicked[i];
+  }
+
+  submit() {
+    for (let i = 0; i < this.appClicked.length; i++) {
+      if (this.appClicked[i]) {
+        this.chosenApps.push(this.apps[i])
+      }
+    }
+    this.closeModal();
   }
 
   /*
@@ -113,5 +129,6 @@ export class ModalPage {
     this.navCtrl.pop();
 
   }
+
 }
 

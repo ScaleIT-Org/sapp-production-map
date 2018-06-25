@@ -21,9 +21,9 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let app of apps" col-3>
+      <ion-col *ngFor="let app of apps;index as i" col-3>
         <ion-card class="app-name" onmouseover="style.fontWeight='bold'" onmouseout="style.fontWeight='normal'"
-                  (click)="addApp(app)">
+                  (click)="addApp(i)"  [style.border]="appClicked[i]? ' thick solid gray':''">
 
           <ion-img src={{app.imgUrl}}></ion-img>
           <span>{{app.name}}</span>
@@ -33,6 +33,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
+<button ion-button id="done-button" (click)="submit()">Done</button>
 
 </ion-content>
