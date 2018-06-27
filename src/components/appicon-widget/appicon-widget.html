@@ -1,9 +1,8 @@
 <div id="smoke-screen" class="smoke-screen-modal-on" hide-on-click [hidden]="smokescreen" (click)="hideMe($event)"
      (onStatusChange)="hideMe($event)"></div>
 <ion-row>
-  <ng-template ngFor let-app [ngForOf]="apps" let-i="index">
-
-    <div [ngStyle]="app.onTopStyle()" ngDraggable> <!--app.onTopStyle() test more-->
+  <!--<ng-template ngFor let-app [ngForOf]="apps" let-i="index"  >-->
+    <div *ngFor="let app of apps;index as i" (stopped)="saveStyle($event,i)" [ngStyle]="getStyle(i)" ngDraggable> <!--app.onTopStyle() test more-->
       <div class="app-icon" [ngStyle]="app.setBackground()" (click)="previewHandler(app)">
         <p>{{app.name}}</p>
       </div>
@@ -19,11 +18,11 @@
             </button>
           </div>
         </div>
-        <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ngDraggable></iframe> <!-- ngDraggable-->
+        <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ></iframe> <!-- ngDraggable-->
         <!-- <object type="text/html" [data]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ngDraggable></object>-->
 
       </div>
 
     </div>
-  </ng-template>
+  <!--</ng-template>-->
 </ion-row>

@@ -4,7 +4,8 @@ import {
 } from "@angular/core";
 import {App, AppStatus} from "./app";
 import {DomSanitizer} from "@angular/platform-browser";
-import {SharedStorage} from "ngx-store";
+import {LocalStorage, SharedStorage} from "ngx-store";
+import {CookieService} from "ngx-cookie";
 
 /**
  * Generated class for the AppiconWidgetComponent component.
@@ -20,16 +21,23 @@ export class AppiconWidgetComponent {
   @SharedStorage('chosenApps') chosenApps: Array<App>;
   apps: App[];
   public smokescreen: boolean = false;
+  @LocalStorage() positionArray: string = "";
+  itemStyles: Array<{ transform: any }>;
 
-  constructor(public sanitizer: DomSanitizer, private dataProvider: HttpDataProvider) {
+  constructor(public sanitizer: DomSanitizer, private dataProvider: HttpDataProvider, private cookieService: CookieService) {
     //constructor(private dataProvider: HttpDataProvider) {
     console.log("Initializing App Icons...");
     this.smokescreen = false;
+    //let cookieItemStyles = this.cookieService.getObject('homeItemStyles');
+    /*
+    if (cookieItemStyles) {
+      console.log(cookieItemStyles);
+      this.itemStyles = cookieItemStyles;
+    } else {
+      this.itemStyles = {};
+    }
+*/
 
-
-  }
-
-  ngAfterViewInit() {
     this.apps = new Array();
     //this.getData("");
     this.apps.push(
@@ -58,6 +66,16 @@ export class AppiconWidgetComponent {
       new App("test-app2", "localhost:3000/", AppStatus.Warning)
     );
     this.apps.push(new App("test-app3", "localhost:8100"));
+
+    this.itemStyles = new Array(this.apps.length);
+    for (let i = 0; i < this.itemStyles.length; i++) {
+      this.itemStyles[i] = {transform: ""};
+    }
+  }
+
+  ngAfterViewInit() {
+
+
   }
 
   public log(text: string) {
@@ -106,6 +124,26 @@ export class AppiconWidgetComponent {
       }
     }
     return index;
+  }
+
+  saveStyle(event, item) {
+    console.log(item);
+    this.itemStyles[item] = {transform: event.style.transform};
+    this.positionArray = JSON.stringify(this.itemStyles);
+
+    console.log("end " + this.itemStyles[item].transform);
+    //this.cookieService.putObject('homeItemStyles', this.itemStyles);
+  }
+
+  getStyle(item) {
+
+    var position = JSON.parse(this.positionArray);
+    //console.log({"transform":position[item]+"!important"});
+    return {'transform':position[item]};
+  }
+
+  saveSomeData(array: Array<any>) {
+    //this.localStorageService.set('positionArray', JSON.stringify(array));
   }
 
   /*

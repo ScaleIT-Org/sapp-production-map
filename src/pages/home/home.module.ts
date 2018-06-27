@@ -4,6 +4,7 @@ import { IonicPageModule} from "ionic-angular";
 import { HomePage } from "./home";
 import { ComponentsModule } from "../../components/components.module";
 import { PipesModule } from "../../pipes/pipes.module";
+import {CookieModule} from "ngx-cookie";
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { PipesModule } from "../../pipes/pipes.module";
     IonicPageModule.forChild(HomePage),
     ComponentsModule,
     PipesModule,
-    DirectivesModule
+    DirectivesModule,
+    CookieModule.forRoot()
   ],
   bootstrap: [HomePage]
 })
