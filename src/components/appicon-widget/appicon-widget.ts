@@ -23,6 +23,9 @@ export class AppiconWidgetComponent {
   public smokescreen: boolean = false;
   @LocalStorage() positionArray: string = "";
   itemStyles: Array<{ transform: any }>;
+  ifMoved: Array<boolean>;
+  start = {x: 0, y: 0};
+  end = {x: 0, y: 0};
 
   constructor(public sanitizer: DomSanitizer, private dataProvider: HttpDataProvider, private cookieService: CookieService) {
     //constructor(private dataProvider: HttpDataProvider) {
@@ -68,8 +71,10 @@ export class AppiconWidgetComponent {
     this.apps.push(new App("test-app3", "localhost:8100"));
 
     this.itemStyles = new Array(this.apps.length);
-    for (let i = 0; i < this.itemStyles.length; i++) {
+    this.ifMoved = new Array(this.apps.length);
+    for (let i = 0; i < this.apps.length; i++) {
       this.itemStyles[i] = {transform: ""};
+      this.ifMoved[i] = false;
     }
   }
 
@@ -99,8 +104,13 @@ export class AppiconWidgetComponent {
   }
 
   public previewHandler(app: App) {
-    document.getElementById("smoke-screen").style.visibility = "visible";
-    app.previewToggle();
+    var index = this.apps.indexOf(app);
+
+    if (!this.ifMoved[index]) {
+      document.getElementById("smoke-screen").style.visibility = "visible";
+      app.previewToggle();
+    }
+
   }
 
   delete(app: App) {
@@ -126,25 +136,57 @@ export class AppiconWidgetComponent {
     return index;
   }
 
-  saveStyle(event, item) {
-    console.log(item);
-    this.itemStyles[item] = {transform: event.style.transform};
+  saveStyle(transformation, index) {
+    this.itemStyles[index] = {transform: transformation};
     this.positionArray = JSON.stringify(this.itemStyles);
-
-    console.log("end " + this.itemStyles[item].transform);
-    //this.cookieService.putObject('homeItemStyles', this.itemStyles);
   }
 
-  getStyle(item) {
-
+  getStyle(index) {
     var position = JSON.parse(this.positionArray);
     //console.log({"transform":position[item]+"!important"});
-    return {'transform':position[item]};
+    return {'transform': position[index]};
   }
 
-  saveSomeData(array: Array<any>) {
-    //this.localStorageService.set('positionArray', JSON.stringify(array));
+  onStop(event, index) {
+      var transformArray = this.parseTransformString(event.style.transform);
+      this.end.x = transformArray[0];
+      this.end.y = transformArray[1];
+    console.log(event.style.transform);
+    console.log(this.end.x+" "+this.end.y);
+
+    this.saveStyle(event.style.transform, index);
+    this.chechIfMoved(index);
+
   }
+
+  onStart(event) {
+      var transformArray = this.parseTransformString(event.style.transform);
+      this.start.x = transformArray[0];
+      this.start.y = transformArray[1];
+      console.log(event.style.transform);
+      console.log(this.start.x+" "+this.start.y);
+
+  }
+
+  chechIfMoved(index) {
+    if (this.start.x != this.end.x || this.start.y != this.end.y) {
+      console.log(this.start.x != this.end.x && this.start.y != this.end.y);
+      this.ifMoved[index] = true;
+    } else {
+      this.ifMoved[index] = false;
+    }
+    console.log(this.ifMoved);
+  }
+
+  parseTransformString(input: string): Array<number> {
+    var regex =  /-?\d/g;
+    var stringArray = input.split(",");
+    for (let i = 0; i < 2; i++) {
+      stringArray[i] = stringArray[i].match(regex).join("");
+    }
+    return stringArray.map(Number);
+  }
+
 
   /*
   getData(path: string) {

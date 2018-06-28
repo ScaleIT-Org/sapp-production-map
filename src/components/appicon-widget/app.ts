@@ -56,31 +56,30 @@ export class App {
   }
 
 
-
-previewToggle()
-{
-  if (this.previewing == false) {
-    this.previewing = true;
-  } else this.previewing = false;
-}
-
-previewStyle()
-{
-  let result = this.previewing ? "block" : "none";
-  switch (this.previewPosition) {
-    case "left":
-      return {display: result, left: "7vw"};
-    case "right":
-      return {display: result, right: "7vw"};
-    default:
-      return {display: result};
+  previewToggle() {
+    this.previewing=!this.previewing;
+    /*
+    if (this.previewing == false) {
+      this.previewing = true;
+    } else this.previewing = false;
+    */
   }
-  // return { display: result, this.previewPosition: 7vw;};
-}
 
-onTopStyle()
-{
-  let result = this.previewing ? 100 : 50;
-  return {"z-index": result};
-}
+  previewStyle() {
+    let result = this.previewing ? "block" : "none";
+    switch (this.previewPosition) {
+      case "left":
+        return {display: result, left: "7vw"};
+      case "right":
+        return {display: result, right: "7vw"};
+      default:
+        return {display: result};
+    }
+    // return { display: result, this.previewPosition: 7vw;};
+  }
+
+  onTopStyle() {
+    let result = this.previewing ? 100 : 50;
+    return {"z-index": result};
+  }
 }
