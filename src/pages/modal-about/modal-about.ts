@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 
 /**
  * Generated class for the ModalAboutPage page.
@@ -22,4 +22,8 @@ export class ModalAboutPage {
     console.log('ionViewDidLoad ModalAboutPage');
   }
 
+  closeModal() {
+    this.navCtrl.pop();
+
+  }
 }
