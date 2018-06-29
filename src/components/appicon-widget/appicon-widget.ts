@@ -151,8 +151,6 @@ export class AppiconWidgetComponent {
       var transformArray = this.parseTransformString(event.style.transform);
       this.end.x = transformArray[0];
       this.end.y = transformArray[1];
-    console.log(event.style.transform);
-    console.log(this.end.x+" "+this.end.y);
 
     this.saveStyle(event.style.transform, index);
     this.chechIfMoved(index);
@@ -163,8 +161,6 @@ export class AppiconWidgetComponent {
       var transformArray = this.parseTransformString(event.style.transform);
       this.start.x = transformArray[0];
       this.start.y = transformArray[1];
-      console.log(event.style.transform);
-      console.log(this.start.x+" "+this.start.y);
 
   }
 
