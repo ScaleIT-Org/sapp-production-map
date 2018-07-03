@@ -4,7 +4,7 @@
 </ion-header>
 
 
-<ion-content padding [ngClass]="isScrollingEnabled() ? 'no-class' : 'no-scroll' ">
+<ion-content padding [ngClass]="checkScrolling() ? 'no-class' : 'no-scroll' ">
 
   <!-- hide the input field to show the "select map" button only -->
   <input

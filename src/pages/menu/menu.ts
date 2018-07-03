@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams, Nav, MenuController, Events} from 'ionic-angular';
 import {HomePage} from "../home/home";
 import {AdministrationPage} from "../administration/administration";
-import {LocalStorage} from "ngx-store";
+import {SharedLocalStorageProvider} from "../../providers/localstorageservice/sharedlocalstorage";
 
 /**
  * Generated class for the MenuPage page.
@@ -24,24 +24,27 @@ export class MenuPage {
   pages: Array<{ title: string, component: any, icon: string }>;
   @ViewChild(Nav) nav: Nav;
   rootPage: any = 'user';
-  isScrollingEnable: boolean = true;
+  isScrollingEnabled: boolean;
+
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public menuCtrl: MenuController,
-              public events: Events) {
+              public events: Events,
+              private sharedLocalStorageProvider: SharedLocalStorageProvider) {
     this.pages = [
       {title: 'Home', component: HomePage, icon: 'home'},
       {title: 'Admin', component: AdministrationPage, icon: 'construct'}
     ];
-    this.isScrollingEnable = true; //enable scrolling and switch on toggle button as default
+    this.isScrollingEnabled = this.sharedLocalStorageProvider.getIsScrolling();
   }
 
   ionViewDidLoad() {
+    this.sharedLocalStorageProvider.currentMessage.subscribe(message => this.isScrollingEnabled = message);
   }
 
   toggleScrolling() {
-
+    this.sharedLocalStorageProvider.toggleScrolling();
   }
 
 

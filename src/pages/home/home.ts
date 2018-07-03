@@ -2,8 +2,7 @@ import {IonicPage, Events,ModalController} from 'ionic-angular';
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {LocalStorage} from "ngx-store";
-
-//import { LocalstorageProvider } from "../../providers/localstorage/localstorage";
+import {SharedLocalStorageProvider} from "../../providers/localstorageservice/sharedlocalstorage";
 
 /**
  * The home page, that will be rooted from menu-page (which is the root page in this app).
@@ -24,13 +23,21 @@ export class HomePage {
   @LocalStorage()
   selectedMap: any;
 
+  isScrollingEnabled: boolean;
+
   reader: FileReader;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public events: Events, public modalCtrl: ModalController) {
+              public events: Events, public modalCtrl: ModalController,
+              private sharedLocalStorageProvider: SharedLocalStorageProvider ) {
     this.reader = new FileReader();
     this.selectedMap = "assets/imgs/grundriss.png"; //set a default map to show until user selects something else
+    this.isScrollingEnabled = this.sharedLocalStorageProvider.getIsScrolling();
+  }
+
+  ionViewDidLoad() {
+    this.sharedLocalStorageProvider.currentMessage.subscribe(message => this.isScrollingEnabled = message);
   }
 
   /**
@@ -47,8 +54,8 @@ export class HomePage {
     this.reader.readAsDataURL(event.target.files[0]);
   }
 
-  isScrollingEnabled() {
-    //return this.localstorageProvider.getIsScrollingEnabled()
+  checkScrolling() {
+    return this.isScrollingEnabled;
   }
 
   presentModal() {
