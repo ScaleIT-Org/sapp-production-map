@@ -21,7 +21,7 @@ export class AppiconWidgetComponent {
   @SharedStorage('chosenApps') chosenApps: Array<App>;
   apps: App[];
   public smokescreen: boolean = false;
-  @LocalStorage() positionArray: string = "";
+  @LocalStorage() positionString: string;
   itemStyles: Array<{ transform: any }>;
   ifMoved: Array<boolean>;
   start = {x: 0, y: 0};
@@ -76,6 +76,7 @@ export class AppiconWidgetComponent {
       this.itemStyles[i] = {transform: ""};
       this.ifMoved[i] = false;
     }
+    this.positionString = "";
   }
 
   ngAfterViewInit() {
@@ -138,19 +139,25 @@ export class AppiconWidgetComponent {
 
   saveStyle(transformation, index) {
     this.itemStyles[index] = {transform: transformation};
-    this.positionArray = JSON.stringify(this.itemStyles);
+    this.positionString = JSON.stringify(this.itemStyles);
   }
 
   getStyle(index) {
-    var position = JSON.parse(this.positionArray);
+    if (this.positionString.length != 0) {
+      var position = JSON.parse(this.positionString);
+      var result = {'transform': position[index]};
+    } else {
+      result = {'transform': 'translate(0px,0px)'};
+    }
+
     //console.log({"transform":position[item]+"!important"});
-    return {'transform': position[index]};
+    return result;
   }
 
   onStop(event, index) {
-      var transformArray = this.parseTransformString(event.style.transform);
-      this.end.x = transformArray[0];
-      this.end.y = transformArray[1];
+    var transformArray = this.parseTransformString(event.style.transform);
+    this.end.x = transformArray[0];
+    this.end.y = transformArray[1];
 
     this.saveStyle(event.style.transform, index);
     this.chechIfMoved(index);
@@ -158,9 +165,9 @@ export class AppiconWidgetComponent {
   }
 
   onStart(event) {
-      var transformArray = this.parseTransformString(event.style.transform);
-      this.start.x = transformArray[0];
-      this.start.y = transformArray[1];
+    var transformArray = this.parseTransformString(event.style.transform);
+    this.start.x = transformArray[0];
+    this.start.y = transformArray[1];
 
   }
 
@@ -175,7 +182,7 @@ export class AppiconWidgetComponent {
   }
 
   parseTransformString(input: string): Array<number> {
-    var regex =  /-?\d/g;
+    var regex = /-?\d/g;
     var stringArray = input.split(",");
     for (let i = 0; i < 2; i++) {
       stringArray[i] = stringArray[i].match(regex).join("");
