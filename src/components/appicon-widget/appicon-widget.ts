@@ -22,7 +22,7 @@ export class AppiconWidgetComponent {
   apps: App[];
   public smokescreen: boolean = false;
   @LocalStorage() positionString: string;
-  itemStyles: Array<{ transform: any }>;
+  itemEndPosition: Array<{ x: number, y: number }>;
   ifMoved: Array<boolean>;
   start = {x: 0, y: 0};
   end = {x: 0, y: 0};
@@ -31,13 +31,13 @@ export class AppiconWidgetComponent {
     //constructor(private dataProvider: HttpDataProvider) {
     console.log("Initializing App Icons...");
     this.smokescreen = false;
-    //let cookieItemStyles = this.cookieService.getObject('homeItemStyles');
+    //let cookieitemEndPosition = this.cookieService.getObject('homeitemEndPosition');
     /*
-    if (cookieItemStyles) {
-      console.log(cookieItemStyles);
-      this.itemStyles = cookieItemStyles;
+    if (cookieitemEndPosition) {
+      console.log(cookieitemEndPosition);
+      this.itemEndPosition = cookieitemEndPosition;
     } else {
-      this.itemStyles = {};
+      this.itemEndPosition = {};
     }
 */
 
@@ -70,13 +70,20 @@ export class AppiconWidgetComponent {
     );
     this.apps.push(new App("test-app3", "localhost:8100"));
 
-    this.itemStyles = new Array(this.apps.length);
+    this.itemEndPosition = new Array(this.apps.length);
     this.ifMoved = new Array(this.apps.length);
     for (let i = 0; i < this.apps.length; i++) {
-      this.itemStyles[i] = {transform: ""};
+      this.itemEndPosition[i] = {x: 0, y: 0};
       this.ifMoved[i] = false;
     }
     this.positionString = "";
+
+    if (this.positionString.length != 0) {
+      var position = JSON.parse(this.positionString);
+      for (let i = 0; i < this.itemEndPosition.length; i++) {
+        this.itemEndPosition[i] = {x: position[i].x, y: position[i].y};
+      }
+    }
   }
 
   ngAfterViewInit() {
@@ -137,22 +144,13 @@ export class AppiconWidgetComponent {
     return index;
   }
 
+  //save position, by transforming array of positions into a string and saving it in localStorage
   saveStyle(transformation, index) {
-    this.itemStyles[index] = {transform: transformation};
-    this.positionString = JSON.stringify(this.itemStyles);
+    this.itemEndPosition[index] = {x: this.end.x, y: this.end.y};
+    JSON.stringify(this.itemEndPosition[index]);
+    this.positionString = JSON.stringify(this.itemEndPosition);
   }
 
-  getStyle(index) {
-    if (this.positionString.length != 0) {
-      var position = JSON.parse(this.positionString);
-      var result = {'transform': position[index]};
-    } else {
-      result = {'transform': 'translate(0px,0px)'};
-    }
-
-    //console.log({"transform":position[item]+"!important"});
-    return result;
-  }
 
   onStop(event, index) {
     var transformArray = this.parseTransformString(event.style.transform);
