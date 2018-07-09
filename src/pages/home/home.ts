@@ -1,4 +1,4 @@
-import {IonicPage, Events,ModalController} from 'ionic-angular';
+import {IonicPage, Events, ModalController} from 'ionic-angular';
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {LocalStorage} from "ngx-store";
@@ -30,7 +30,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public events: Events, public modalCtrl: ModalController,
-              private sharedLocalStorageProvider: SharedLocalStorageProvider ) {
+              private sharedLocalStorageProvider: SharedLocalStorageProvider) {
     this.reader = new FileReader();
     this.selectedMap = "assets/imgs/grundriss.png"; //set a default map to show until user selects something else
     this.isScrollingEnabled = this.sharedLocalStorageProvider.getIsScrolling();
@@ -59,7 +59,7 @@ export class HomePage {
   }
 
   presentModal() {
-    let modal = this.modalCtrl.create('ModalPage');
+    let modal = this.modalCtrl.create('ModalCatalogPage');
     modal.present();
   }
 

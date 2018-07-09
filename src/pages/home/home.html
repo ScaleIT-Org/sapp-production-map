@@ -11,8 +11,11 @@
     style="display: none"
     type="file" (change)="onFileChanged($event)"
     #fileInput>
-  <button ion-button (click)="fileInput.click()">Select Map</button>
-  <button ion-button (click)="presentModal()">Select App</button>
+  <ion-buttons>
+    <button ion-button (click)="fileInput.click()">Select Map</button>
+    <button ion-button (click)="presentModal()">Select App</button>
+  </ion-buttons>
+
 
   <ion-card>
     <ion-card-content>
@@ -21,7 +24,7 @@
 
     <!-- show a photo of the selected map -->
     <ion-card-content>
-      <img [src]="selectedMap" />
+      <img [src]="selectedMap"/>
     </ion-card-content>
   </ion-card>
 

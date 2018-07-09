@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {App, AppStatus} from "../../components/appicon-widget/app";
 import {SharedStorage} from "ngx-store";
 
 /**
- * Generated class for the ModalPage page.
+ * Generated class for the ModalCatalogPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,24 +12,17 @@ import {SharedStorage} from "ngx-store";
 
 @IonicPage()
 @Component({
-  selector: 'page-modal',
-  templateUrl: 'modal.html',
+  selector: 'page-modal-catalog',
+  templateUrl: 'modal-catalog.html',
 })
-export class ModalPage {
+export class ModalCatalogPage {
   apps: Array<App>;
   @SharedStorage() chosenApps: Array<App>;
   appClicked: Array<boolean>;
+  ifShow: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-
-  }
-
-  ngAfterViewInit() {
-
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ModalPage');
+    this.ifShow = false;
     if (this.chosenApps != null) {
       for (let i = 0; i < this.chosenApps.length; i++) {
         console.log(this.chosenApps[i].name);
@@ -72,6 +65,16 @@ export class ModalPage {
     }
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ModalCatalogPage');
+  }
+ show() {
+    console.log(this.ifShow);
+    if (this.ifShow == false) {
+      this.ifShow = true;
+    }
+  }
+
   addApp(i: number) {
     //this.chosenApps.push(app);
     this.appClicked[i] = !this.appClicked[i];
@@ -83,7 +86,7 @@ export class ModalPage {
         this.chosenApps.push(this.apps[i])
       }
     }
-    this.closeModal();
+    this.navCtrl.pop();
   }
 
   /*
@@ -124,11 +127,4 @@ export class ModalPage {
       // console.log("Data filtered:" + this.testData);
     });
   }*/
-
-  closeModal() {
-    this.navCtrl.pop();
-
-  }
-
 }
-
