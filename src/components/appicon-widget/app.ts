@@ -11,16 +11,18 @@ export enum AppStatus {
 export class App {
   constructor(
     public name: string,
-    //public url: SafeResourceUrl,
     public url: string,
     public status: AppStatus = AppStatus.Disabled,
     public imgUrl: string = "assets/imgs/scaleit-waben.png",
     public previewPosition: string = "left",
-    public iconLocalHelper: string = ""
+    public iconLocalHelper: string = "",
+
   ) {
   }
 
   public previewing: boolean;
+  public positionX: number = 0;
+  public positionY: number = 0;
 
   updateMissingRemoteIcons() {
     // if (this.imgUrl === "assets/imgs/scaleit-waben.png") {
@@ -57,12 +59,7 @@ export class App {
 
 
   previewToggle() {
-    this.previewing=!this.previewing;
-    /*
-    if (this.previewing == false) {
-      this.previewing = true;
-    } else this.previewing = false;
-    */
+    this.previewing = !this.previewing;
   }
 
   previewStyle() {

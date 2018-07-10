@@ -4,7 +4,7 @@ import {
 } from "@angular/core";
 import {App, AppStatus} from "./app";
 import {DomSanitizer} from "@angular/platform-browser";
-import {LocalStorage, SharedStorage} from "ngx-store";
+import {LocalStorage, SessionStorage, SharedStorage} from "ngx-store";
 import {CookieService} from "ngx-cookie";
 
 /**
@@ -47,21 +47,21 @@ export class AppiconWidgetComponent {
       new App(
         "Ionic App",
         "https://codecraft.tv",
-        //this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
+
         AppStatus.Up,
         "/assets/imgs/vis-app.png"
       )
-    ); // this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:8100"),
+    );
     this.apps.push(
       new App(
         "AOI Machine",
         "https://codecraft.tv",
-        //this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
+
         AppStatus.Up,
         "/assets/imgs/machine-app.png",
         "right"
       )
-    ); // this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:3000"),
+    );
     this.apps.push(
       new App("test-app", "localhost:3000/", AppStatus.Down)
     );
@@ -80,10 +80,12 @@ export class AppiconWidgetComponent {
 
     if (this.positionString.length != 0) {
       var position = JSON.parse(this.positionString);
-      for (let i = 0; i < this.itemEndPosition.length; i++) {
+      for (let i = 0; i < this.apps.length; i++) {
         this.itemEndPosition[i] = {x: position[i].x, y: position[i].y};
       }
     }
+
+
   }
 
   ngAfterViewInit() {
@@ -145,9 +147,8 @@ export class AppiconWidgetComponent {
   }
 
   //save position, by transforming array of positions into a string and saving it in localStorage
-  saveStyle(transformation, index) {
+  saveStyle(index) {
     this.itemEndPosition[index] = {x: this.end.x, y: this.end.y};
-    JSON.stringify(this.itemEndPosition[index]);
     this.positionString = JSON.stringify(this.itemEndPosition);
   }
 
@@ -157,7 +158,7 @@ export class AppiconWidgetComponent {
     this.end.x = transformArray[0];
     this.end.y = transformArray[1];
 
-    this.saveStyle(event.style.transform, index);
+    this.saveStyle(index);
     this.chechIfMoved(index);
 
   }
@@ -166,6 +167,7 @@ export class AppiconWidgetComponent {
     var transformArray = this.parseTransformString(event.style.transform);
     this.start.x = transformArray[0];
     this.start.y = transformArray[1];
+
 
   }
 
@@ -188,6 +190,13 @@ export class AppiconWidgetComponent {
     return stringArray.map(Number);
   }
 
+  undo(index: number) {
+    this.end.x = 0;
+    this.end.y = 0;
+    this.saveStyle(index);
+    this.apps[index].previewToggle();
+   // this.chechIfMoved(index);
+  }
 
   /*
   getData(path: string) {

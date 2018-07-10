@@ -2,7 +2,7 @@
      (onStatusChange)="hideMe($event)"></div>
 <ion-row>
   <!--<ng-template ngFor let-app [ngForOf]="apps" let-i="index"  >-->
-  <div *ngFor="let app of apps;index as i" (started)="onStart($event)" (stopped)="onStop($event,i)"
+  <div *ngFor="let app of apps;index as i" (started)="onStart($event,i)" (stopped)="onStop($event,i)"
        [ngStyle]="app.onTopStyle()" [position]="{x: itemEndPosition[i].x, y:itemEndPosition[i].y}" ngDraggable>
     <!--app.onTopStyle() test more-->
     <div class="app-icon" [ngStyle]="app.setBackground()" (click)="previewHandler(app)">
@@ -12,12 +12,16 @@
     <div class="app-previewer" [ngStyle]="app.previewStyle()">
       <div class="widget-bar">{{app.name}}
         <div class="widget-control">
+          <button icon-only (click)="undo(i)">
+            <ion-icon name="undo"></ion-icon>
+          </button>
           <button icon-only (click)="delete(app)">
             <ion-icon name="trash"></ion-icon>
           </button>
           <button icon-only (click)="app.previewToggle()">
             <ion-icon name="close-circle"></ion-icon>
           </button>
+
         </div>
       </div>
       <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)"></iframe> <!-- ngDraggable-->
