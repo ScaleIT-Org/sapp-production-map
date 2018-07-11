@@ -31,6 +31,8 @@ export class AppiconWidgetComponent {
     //constructor(private dataProvider: HttpDataProvider) {
     console.log("Initializing App Icons...");
     this.smokescreen = false;
+
+    this.apps = new Array();
     //let cookieitemEndPosition = this.cookieService.getObject('homeitemEndPosition');
     /*
     if (cookieitemEndPosition) {
@@ -40,7 +42,7 @@ export class AppiconWidgetComponent {
       this.itemEndPosition = {};
     }
 */
-
+    /*
     this.apps = new Array();
     //this.getData("");
     this.apps.push(
@@ -69,28 +71,14 @@ export class AppiconWidgetComponent {
       new App("test-app2", "localhost:3000/", AppStatus.Warning)
     );
     this.apps.push(new App("test-app3", "localhost:8100"));
-
-    this.itemEndPosition = new Array(this.apps.length);
-    this.ifMoved = new Array(this.apps.length);
-    for (let i = 0; i < this.apps.length; i++) {
-      this.itemEndPosition[i] = {x: 0, y: 0};
-      this.ifMoved[i] = false;
-    }
-    this.positionString = "";
-
-    if (this.positionString.length != 0) {
-      var position = JSON.parse(this.positionString);
-      for (let i = 0; i < this.apps.length; i++) {
-        this.itemEndPosition[i] = {x: position[i].x, y: position[i].y};
-      }
-    }
-
+    */
 
   }
 
   ngAfterViewInit() {
-
-
+    this.getData();
+    console.log('data is read');
+    console.log(this.apps.length);
   }
 
   public log(text: string) {
@@ -198,11 +186,12 @@ export class AppiconWidgetComponent {
    // this.chechIfMoved(index);
   }
 
-  /*
-  getData(path: string) {
-    let dataObserver = this.dataProvider.getData(path);
+
+  getData() {
+    let dataObserver = this.dataProvider.getData();
 
     dataObserver.subscribe(dataFromProvider => {
+      this.apps = new Array();
       console.log("Data received:" + dataFromProvider);
 
       this.apps = dataFromProvider["node"]["nodes"].map(x => ({
@@ -230,10 +219,32 @@ export class AppiconWidgetComponent {
 
         myapp.status = AppStatus.Up;
         myapp.updateMissingRemoteIcons();
+        console.log("debuggin xuaging");
+        console.log(myapp.name);
         myapps.push(myapp);
+
+
+        this.apps = myapps;
+        this.itemEndPosition = new Array(this.apps.length);
+        this.ifMoved = new Array(this.apps.length);
+        for (let i = 0; i < this.apps.length; i++) {
+          this.itemEndPosition[i] = {x: 0, y: 0};
+          this.ifMoved[i] = false;
+        }
+        this.positionString = "";
+
+        if (this.positionString.length != 0) {
+          var position = JSON.parse(this.positionString);
+          for (let i = 0; i < this.apps.length; i++) {
+            this.itemEndPosition[i] = {x: position[i].x, y: position[i].y};
+          }
+        }
       });
+      console.log("length");
       this.apps = myapps;
+      console.log(myapps.length);
+      console.log(this.apps.length);
       // console.log("Data filtered:" + this.testData);
     });
-  }*/
+  }
 }
