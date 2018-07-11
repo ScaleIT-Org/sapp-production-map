@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {App, AppStatus} from "../../components/appicon-widget/app";
 import {SharedStorage} from "ngx-store";
+import {DomSanitizer} from "@angular/platform-browser";
+import {HttpDataProvider} from "../../providers/http-data/http-data";
+import {Subscription} from "rxjs/Subscription";
 
 /**
  * Generated class for the ModalCatalogPage page.
@@ -20,9 +23,11 @@ export class ModalCatalogPage {
   @SharedStorage() chosenApps: Array<App>;
   appClicked: Array<boolean>;
   ifShow: boolean;
-  urlRegistry:string;
+  urlRegistry: string;
+  previousUrlRegistry: string;
+  registrySubscription: Subscription;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public sanitizer: DomSanitizer, private dataProvider: HttpDataProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.ifShow = false;
     if (this.chosenApps != null) {
       for (let i = 0; i < this.chosenApps.length; i++) {
@@ -31,6 +36,7 @@ export class ModalCatalogPage {
     }
 
     this.chosenApps = new Array();
+    /*
     this.apps = new Array();
     //this.getData("");
     this.apps.push(
@@ -59,22 +65,32 @@ export class ModalCatalogPage {
       new App("test-app2", "localhost:3000/", AppStatus.Warning)
     );
     this.apps.push(new App("test-app3", "localhost:8100"));
-    this.urlRegistry="";
-    this.appClicked = new Array(this.apps.length);
-    for (let i = 0; i < this.apps.length; i++) {
-      this.appClicked[i] = false;
-    }
+    */
+    this.urlRegistry = "";
+    this.previousUrlRegistry = "";
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalCatalogPage');
   }
- show() {
-    console.log(this.ifShow);
+
+  show() {
     if (this.ifShow == false) {
       this.ifShow = true;
     }
-    console.log(this.urlRegistry);
+    // in case url should is changed but old apps are saved and there is still subscription to old url
+    if (this.previousUrlRegistry != this.urlRegistry && this.registrySubscription != undefined) {
+      this.registrySubscription.unsubscribe();
+      this.apps=[];
+    }
+    if (this.urlRegistry != "") {
+      this.getData();
+    }
+    console.log(this.previousUrlRegistry+","+this.urlRegistry);
+
+    this.previousUrlRegistry = this.urlRegistry;
+
+
   }
 
   addApp(i: number) {
@@ -83,26 +99,30 @@ export class ModalCatalogPage {
   }
 
   submit() {
-    for (let i = 0; i < this.appClicked.length; i++) {
-      if (this.appClicked[i]) {
-        this.chosenApps.push(this.apps[i])
+    if (this.appClicked != undefined) {
+      for (let i = 0; i < this.appClicked.length; i++) {
+        if (this.appClicked[i]) {
+          this.chosenApps.push(this.apps[i])
+        }
       }
     }
+
     this.navCtrl.pop();
   }
 
-  /*
-  getData(path: string) {
-    let dataObserver = this.dataProvider.getData(path);
+  getData() {
 
-    dataObserver.subscribe(dataFromProvider => {
+    let dataObserver = this.dataProvider.getData();
+    this.dataProvider.baseUrl = this.urlRegistry;
+    this.registrySubscription = dataObserver.subscribe(dataFromProvider => {
+      this.apps = new Array();
       console.log("Data received:" + dataFromProvider);
 
       this.apps = dataFromProvider["node"]["nodes"].map(x => ({
         key: x["key"].split("/")[2],
         nodes: x["nodes"]
           .filter(x => x["value"] != "")
-          .map(x => ({ key: x["key"].split("/")[3], value: x["value"] }))
+          .map(x => ({key: x["key"].split("/")[3], value: x["value"]}))
       }));
 
       let myapps: App[] = new Array();
@@ -123,10 +143,23 @@ export class ModalCatalogPage {
 
         myapp.status = AppStatus.Up;
         myapp.updateMissingRemoteIcons();
+        console.log("debuggin xuaging");
+        console.log(myapp.name);
         myapps.push(myapp);
+
+        this.appClicked = new Array(this.apps.length);
+        for (let i = 0; i < this.apps.length; i++) {
+          this.appClicked[i] = false;
+        }
+
+        this.apps = myapps;
+
       });
+      console.log("length");
       this.apps = myapps;
+      console.log(myapps.length);
+      console.log(this.apps.length);
       // console.log("Data filtered:" + this.testData);
     });
-  }*/
+  }
 }

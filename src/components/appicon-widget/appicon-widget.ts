@@ -188,6 +188,8 @@ export class AppiconWidgetComponent {
 
 
   getData() {
+
+
     let dataObserver = this.dataProvider.getData();
 
     dataObserver.subscribe(dataFromProvider => {
