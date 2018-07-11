@@ -20,6 +20,7 @@ export class ModalCatalogPage {
   @SharedStorage() chosenApps: Array<App>;
   appClicked: Array<boolean>;
   ifShow: boolean;
+  urlRegistry:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.ifShow = false;
@@ -58,7 +59,7 @@ export class ModalCatalogPage {
       new App("test-app2", "localhost:3000/", AppStatus.Warning)
     );
     this.apps.push(new App("test-app3", "localhost:8100"));
-
+    this.urlRegistry="";
     this.appClicked = new Array(this.apps.length);
     for (let i = 0; i < this.apps.length; i++) {
       this.appClicked[i] = false;
@@ -73,6 +74,7 @@ export class ModalCatalogPage {
     if (this.ifShow == false) {
       this.ifShow = true;
     }
+    console.log(this.urlRegistry);
   }
 
   addApp(i: number) {

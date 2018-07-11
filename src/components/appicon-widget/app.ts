@@ -21,8 +21,6 @@ export class App {
   }
 
   public previewing: boolean;
-  public positionX: number = 0;
-  public positionY: number = 0;
 
   updateMissingRemoteIcons() {
     // if (this.imgUrl === "assets/imgs/scaleit-waben.png") {

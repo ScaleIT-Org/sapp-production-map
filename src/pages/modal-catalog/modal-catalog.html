@@ -16,11 +16,11 @@
     <ion-list>
       <ion-item>
         <ion-label color="primary" stacked>Registry URL</ion-label>
-        <ion-input type="url"></ion-input>
+        <ion-input type="url" [(ngModel)]="urlRegistry"></ion-input>
       </ion-item>
     </ion-list>
 
-    <button ion-button  (click)="show()">Show</button>
+    <button ion-button  (click)="show()">Load</button>
   </ion-card>
 
   <ion-card *ngIf="ifShow">
