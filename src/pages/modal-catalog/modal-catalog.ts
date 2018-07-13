@@ -81,12 +81,12 @@ export class ModalCatalogPage {
     // in case url should is changed but old apps are saved and there is still subscription to old url
     if (this.previousUrlRegistry != this.urlRegistry && this.registrySubscription != undefined) {
       this.registrySubscription.unsubscribe();
-      this.apps=[];
+      this.apps = [];
     }
     if (this.urlRegistry != "") {
       this.getData();
     }
-    console.log(this.previousUrlRegistry+","+this.urlRegistry);
+    console.log(this.previousUrlRegistry + "," + this.urlRegistry);
 
     this.previousUrlRegistry = this.urlRegistry;
 

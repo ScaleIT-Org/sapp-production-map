@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {LocalStorage} from "ngx-store";
+import {App} from "../../components/appicon-widget/app";
 
 /*
   Generated class for the SharedLocalStorageProvider provider.
@@ -14,7 +15,7 @@ export class SharedLocalStorageProvider {
 
   private messageSource = new BehaviorSubject(true);
   currentMessage = this.messageSource.asObservable();
-
+  chosenApps:Array<App>;
   @LocalStorage()
   isScrolling: boolean;
 
@@ -32,5 +33,8 @@ export class SharedLocalStorageProvider {
   getIsScrolling() {
     return this.isScrolling;
   }
-
+  getChosenApps(){
+    return this.chosenApps;
+  }
+  
 }
