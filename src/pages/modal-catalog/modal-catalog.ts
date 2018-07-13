@@ -111,9 +111,8 @@ export class ModalCatalogPage {
   }
 
   getData() {
-
     let dataObserver = this.dataProvider.getData();
-    this.dataProvider.baseUrl = this.urlRegistry;
+    this.dataProvider.baseUrl = this.urlRegistry + "/v2/keys/apps?recursive=true";
     this.registrySubscription = dataObserver.subscribe(dataFromProvider => {
       this.apps = new Array();
       console.log("Data received:" + dataFromProvider);
