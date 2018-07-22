@@ -12,16 +12,19 @@ import {App} from "../../components/appicon-widget/app";
 @Injectable()
 export class SharedLocalStorageProvider {
 
-
   private messageSource = new BehaviorSubject(true);
   currentMessage = this.messageSource.asObservable();
-  chosenApps:Array<App>;
+
+  chosenApps: Array<App>;
   @LocalStorage()
   isScrolling: boolean;
 
   constructor() {
     console.log('Hello SharedLocalStorageProvider Provider');
     this.isScrolling = true;
+    this.chosenApps = new Array();
+    this.chosenApps[0]=new App();
+    console.log("test 1 "+this.chosenApps.length);
   }
 
   toggleScrolling() {
@@ -33,8 +36,13 @@ export class SharedLocalStorageProvider {
   getIsScrolling() {
     return this.isScrolling;
   }
-  getChosenApps(){
+
+
+  getChosenApps() {
     return this.chosenApps;
   }
-  
+
+  setChosenAppsByIndex(index: number, app: App) {
+    this.chosenApps[index] = app;
+  }
 }

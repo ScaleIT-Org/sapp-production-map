@@ -5,6 +5,7 @@ import {SharedStorage} from "ngx-store";
 import {DomSanitizer} from "@angular/platform-browser";
 import {HttpDataProvider} from "../../providers/http-data/http-data";
 import {Subscription} from "rxjs/Subscription";
+import {SharedLocalStorageProvider} from "../../providers/localstorageservice/sharedlocalstorage";
 
 /**
  * Generated class for the ModalCatalogPage page.
@@ -20,15 +21,16 @@ import {Subscription} from "rxjs/Subscription";
 })
 export class ModalCatalogPage {
   apps: Array<App>;
-  @SharedStorage() chosenApps: Array<App>;
+  chosenApps: Array<App>;
   appClicked: Array<boolean>;
   ifShow: boolean;
   urlRegistry: string;
   previousUrlRegistry: string;
   registrySubscription: Subscription;
 
-  constructor(public sanitizer: DomSanitizer, private dataProvider: HttpDataProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public sanitizer: DomSanitizer, private dataProvider: HttpDataProvider, public navCtrl: NavController, private sharedLocalStorageProvider: SharedLocalStorageProvider, public navParams: NavParams) {
     this.ifShow = false;
+
     if (this.chosenApps != null) {
       for (let i = 0; i < this.chosenApps.length; i++) {
         console.log(this.chosenApps[i].name);
@@ -36,9 +38,10 @@ export class ModalCatalogPage {
     }
 
     this.chosenApps = new Array();
-    /*
+
     this.apps = new Array();
     //this.getData("");
+    /*
     this.apps.push(
       new App(
         "Ionic App",
@@ -65,9 +68,10 @@ export class ModalCatalogPage {
       new App("test-app2", "localhost:3000/", AppStatus.Warning)
     );
     this.apps.push(new App("test-app3", "localhost:8100"));
-    */
+*/
     this.urlRegistry = "";
     this.previousUrlRegistry = "";
+
   }
 
   ionViewDidLoad() {
@@ -86,7 +90,6 @@ export class ModalCatalogPage {
     if (this.urlRegistry != "") {
       this.getData();
     }
-    console.log(this.previousUrlRegistry + "," + this.urlRegistry);
 
     this.previousUrlRegistry = this.urlRegistry;
 
@@ -102,11 +105,10 @@ export class ModalCatalogPage {
     if (this.appClicked != undefined) {
       for (let i = 0; i < this.appClicked.length; i++) {
         if (this.appClicked[i]) {
-          this.chosenApps.push(this.apps[i])
+          this.sharedLocalStorageProvider.setChosenAppsByIndex(i,this.apps[i]);
         }
       }
     }
-
     this.navCtrl.pop();
   }
 
@@ -150,15 +152,9 @@ export class ModalCatalogPage {
         for (let i = 0; i < this.apps.length; i++) {
           this.appClicked[i] = false;
         }
-
         this.apps = myapps;
-
       });
-      console.log("length");
       this.apps = myapps;
-      console.log(myapps.length);
-      console.log(this.apps.length);
-      // console.log("Data filtered:" + this.testData);
     });
   }
 }

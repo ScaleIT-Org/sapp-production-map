@@ -6,6 +6,7 @@ import {App, AppStatus} from "./app";
 import {DomSanitizer} from "@angular/platform-browser";
 import {LocalStorage, SessionStorage, SharedStorage} from "ngx-store";
 import {CookieService} from "ngx-cookie";
+import {SharedLocalStorageProvider} from "../../providers/localstorageservice/sharedlocalstorage";
 
 /**
  * Generated class for the AppiconWidgetComponent component.
@@ -18,8 +19,7 @@ import {CookieService} from "ngx-cookie";
   templateUrl: "appicon-widget.html"
 })
 export class AppiconWidgetComponent {
-  @SharedStorage('chosenApps') chosenApps: Array<App>;
-  apps: App[];
+  chosenApps: Array<App>;
   public smokescreen: boolean = false;
   @LocalStorage() positionString: string;
   itemEndPosition: Array<{ x: number, y: number }>;
@@ -27,12 +27,29 @@ export class AppiconWidgetComponent {
   start = {x: 0, y: 0};
   end = {x: 0, y: 0};
 
-  constructor(public sanitizer: DomSanitizer, private dataProvider: HttpDataProvider, private cookieService: CookieService) {
+  constructor(public sanitizer: DomSanitizer, private dataProvider: HttpDataProvider, private sharedLocalStorageProvider: SharedLocalStorageProvider, private cookieService: CookieService) {
     //constructor(private dataProvider: HttpDataProvider) {
     console.log("Initializing App Icons...");
     this.smokescreen = false;
+    this.chosenApps = sharedLocalStorageProvider.getChosenApps();
+    console.log("test 2 " + this.chosenApps.length);
 
-    this.apps = new Array();
+    this.itemEndPosition = new Array(this.chosenApps.length);
+    this.ifMoved = new Array(this.chosenApps.length);
+    for (let i = 0; i < this.chosenApps.length; i++) {
+      this.itemEndPosition[i] = {x: 0, y: 0};
+      this.ifMoved[i] = false;
+    }
+    this.positionString = "";
+
+    if (this.positionString.length != 0) {
+      var position = JSON.parse(this.positionString);
+      for (let i = 0; i < this.chosenApps.length; i++) {
+        this.itemEndPosition[i] = {x: position[i].x, y: position[i].y};
+      }
+    }
+
+
     //let cookieitemEndPosition = this.cookieService.getObject('homeitemEndPosition');
     /*
     if (cookieitemEndPosition) {
@@ -76,9 +93,7 @@ export class AppiconWidgetComponent {
   }
 
   ngAfterViewInit() {
-    this.getData();
     console.log('data is read');
-    console.log(this.apps.length);
   }
 
   public log(text: string) {
@@ -88,7 +103,7 @@ export class AppiconWidgetComponent {
   public hideMe(event) {
     this.log("called hideMe");
     let result = false;
-    this.apps.forEach(app => {
+    this.chosenApps.forEach(app => {
       if (app.previewing == true) result = true;
     });
     this.smokescreen = result;
@@ -102,7 +117,7 @@ export class AppiconWidgetComponent {
   }
 
   public previewHandler(app: App) {
-    var index = this.apps.indexOf(app);
+    var index = this.chosenApps.indexOf(app);
 
     if (!this.ifMoved[index]) {
       document.getElementById("smoke-screen").style.visibility = "visible";
@@ -111,28 +126,21 @@ export class AppiconWidgetComponent {
 
   }
 
-  delete(app: App) {
-    var index = this.indexOfApp(app);
-    if (index > -1) {
-      this.chosenApps.splice(index, 1);
-    }
-    if (this.chosenApps != null) {
+  delete(index: number) {
+    this.chosenApps.splice(index, 1);
+  }
+
+  /*
+    indexOfApp(app: App): number {
+      let index = -1;
       for (let i = 0; i < this.chosenApps.length; i++) {
-        console.log("delete " + index + this.chosenApps[i].name);
+        if (app.name == this.chosenApps[i].name) {
+          index = i;
+        }
       }
+      return index;
     }
-
-  }
-
-  indexOfApp(app: App): number {
-    let index = -1;
-    for (let i = 0; i < this.chosenApps.length; i++) {
-      if (app.name == this.chosenApps[i].name) {
-        index = i;
-      }
-    }
-    return index;
-  }
+  */
 
   //save position, by transforming array of positions into a string and saving it in localStorage
   saveStyle(index) {
@@ -182,71 +190,7 @@ export class AppiconWidgetComponent {
     this.end.x = 0;
     this.end.y = 0;
     this.saveStyle(index);
-    this.apps[index].previewToggle();
-   // this.chechIfMoved(index);
-  }
-
-
-  getData() {
-
-
-    let dataObserver = this.dataProvider.getData();
-
-    dataObserver.subscribe(dataFromProvider => {
-      this.apps = new Array();
-      console.log("Data received:" + dataFromProvider);
-
-      this.apps = dataFromProvider["node"]["nodes"].map(x => ({
-        key: x["key"].split("/")[2],
-        nodes: x["nodes"]
-          .filter(x => x["value"] != "")
-          .map(x => ({ key: x["key"].split("/")[3], value: x["value"] }))
-      }));
-
-      let myapps: App[] = new Array();
-      this.apps.forEach(app => {
-        let myapp: App = new App();
-
-        // use a map and make it nicer
-        let title = app["nodes"].filter(x => x["key"] === "title");
-        let iconUrl = app["nodes"].filter(x => x["key"] === "iconUrl");
-        let userUrl = app["nodes"].filter(x => x["key"] === "userUrl");
-        let name = app["nodes"].filter(x => x["key"] === "name");
-        // myapp.push(title);
-        // map(x => ({key: x["key"], }))
-        if (title[0]) myapp.name = title[0]["value"];
-        if (name[0]) myapp.iconLocalHelper = name[0]["value"];
-        if (iconUrl[0]) myapp.imgUrl = iconUrl[0]["value"];
-        if (userUrl[0]) myapp.url = this.sanitizer.bypassSecurityTrustResourceUrl(userUrl[0]["value"]);
-
-        myapp.status = AppStatus.Up;
-        myapp.updateMissingRemoteIcons();
-        console.log("debuggin xuaging");
-        console.log(myapp.name);
-        myapps.push(myapp);
-
-
-        this.apps = myapps;
-        this.itemEndPosition = new Array(this.apps.length);
-        this.ifMoved = new Array(this.apps.length);
-        for (let i = 0; i < this.apps.length; i++) {
-          this.itemEndPosition[i] = {x: 0, y: 0};
-          this.ifMoved[i] = false;
-        }
-        this.positionString = "";
-
-        if (this.positionString.length != 0) {
-          var position = JSON.parse(this.positionString);
-          for (let i = 0; i < this.apps.length; i++) {
-            this.itemEndPosition[i] = {x: position[i].x, y: position[i].y};
-          }
-        }
-      });
-      console.log("length");
-      this.apps = myapps;
-      console.log(myapps.length);
-      console.log(this.apps.length);
-      // console.log("Data filtered:" + this.testData);
-    });
+    this.chosenApps[index].previewToggle();
+    // this.chechIfMoved(index);
   }
 }
