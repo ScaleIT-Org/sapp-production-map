@@ -37,10 +37,13 @@ export class MenuPage {
       {title: 'Admin', component: AdministrationPage, icon: 'construct'}
     ];
     this.isScrollingEnabled = this.sharedLocalStorageProvider.getIsScrolling();
+    console.log("In constructor of Menu page, scrolling is " + this.sharedLocalStorageProvider.getIsScrolling());
   }
 
   ionViewDidLoad() {
-    this.sharedLocalStorageProvider.currentMessage.subscribe(message => this.isScrollingEnabled = message);
+    this.sharedLocalStorageProvider.getScrollingControl().subscribe(message => {
+      this.isScrollingEnabled = message;
+    });
   }
 
   toggleScrolling() {

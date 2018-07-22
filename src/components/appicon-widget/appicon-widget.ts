@@ -31,15 +31,23 @@ export class AppiconWidgetComponent {
     //constructor(private dataProvider: HttpDataProvider) {
     console.log("Initializing App Icons...");
     this.smokescreen = false;
-    this.chosenApps = sharedLocalStorageProvider.getChosenApps();
+    this.chosenApps = this.sharedLocalStorageProvider.getChosenApps();
+    //this.chosenApps = sharedLocalStorageProvider.getChosenApps(); // THIS IS SHIT BECAUSE JAVASCRIPT, KURWA
+    this.sharedLocalStorageProvider.getChosenAppsControl().subscribe(newChosenApps => {
+      this.chosenApps = newChosenApps;
+      console.log("event received and processed, the received apps length is " + newChosenApps.length);
+      this.itemEndPosition = new Array(this.chosenApps.length);
+      this.ifMoved = new Array(this.chosenApps.length);
+      for (let i = 0; i < this.chosenApps.length; i++) {
+        console.log("initialization of shit that does not work! Iteration " + i);
+        this.itemEndPosition[i] = {x: 0, y: 0};
+        this.ifMoved[i] = false;
+      }
+    });
+
     console.log("test 2 " + this.chosenApps.length);
 
-    this.itemEndPosition = new Array(this.chosenApps.length);
-    this.ifMoved = new Array(this.chosenApps.length);
-    for (let i = 0; i < this.chosenApps.length; i++) {
-      this.itemEndPosition[i] = {x: 0, y: 0};
-      this.ifMoved[i] = false;
-    }
+
     this.positionString = "";
 
     if (this.positionString.length != 0) {
@@ -94,6 +102,7 @@ export class AppiconWidgetComponent {
 
   ngAfterViewInit() {
     console.log('data is read');
+    console.log("AppWidgetICon ngAfterViewInit - length of shit is " + this.itemEndPosition.length);
   }
 
   public log(text: string) {

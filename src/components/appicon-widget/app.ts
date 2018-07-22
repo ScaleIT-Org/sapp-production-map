@@ -23,11 +23,9 @@ export class App {
   public previewing: boolean;
 
   updateMissingRemoteIcons() {
-    // if (this.imgUrl === "assets/imgs/scaleit-waben.png") {
-    if (this.iconLocalHelper != "") {
+    if (this.imgUrl === "") {
       this.imgUrl = "assets/imgs/icons/" + this.iconLocalHelper + ".png";
     }
-    // }
   }
 
   setBackground() {

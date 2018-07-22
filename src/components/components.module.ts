@@ -4,18 +4,18 @@ import { AppFooterComponent } from "./app-footer/app-footer";
 import { AppHeaderComponent } from "./app-header/app-header";
 import { AppiconWidgetComponent } from "./appicon-widget/appicon-widget";
 import { AngularDraggableModule } from "angular2-draggable";
-import { ModalCatalogHeaderComponent } from './modal-catalog-header/modal-catalog-header';
+import { ModalHeaderComponent } from './modal-header/modal-header';
 
 @NgModule({
   declarations: [
     AppFooterComponent,
     AppHeaderComponent,
     AppiconWidgetComponent,
-    ModalCatalogHeaderComponent
+    ModalHeaderComponent
   ],
   imports: [IonicModule, AngularDraggableModule],
   exports: [AppFooterComponent, AppHeaderComponent, AppiconWidgetComponent,
-    ModalCatalogHeaderComponent]
+    ModalHeaderComponent]
 })
 export class ComponentsModule {
 

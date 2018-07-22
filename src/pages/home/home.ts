@@ -37,7 +37,9 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    this.sharedLocalStorageProvider.currentMessage.subscribe(message => this.isScrollingEnabled = message);
+    this.sharedLocalStorageProvider.getScrollingControl().subscribe(message => {
+      this.isScrollingEnabled = message;
+    });
   }
 
   /**
@@ -48,7 +50,7 @@ export class HomePage {
     this.selectedFile = event.target.files[0];
     this.reader.onload = (e: any) => {
       this.selectedMap = e.target.result;
-    }
+    };
 
     console.log(this.selectedMap);
     this.reader.readAsDataURL(event.target.files[0]);

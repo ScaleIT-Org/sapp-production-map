@@ -2,7 +2,7 @@
      (onStatusChange)="hideMe($event)"></div>
 <ion-row>
   <!--<ng-template ngFor let-app [ngForOf]="apps" let-i="index"  >-->
-  <div *ngFor="let app of chosenApps;index as i" (started)="onStart($event,i)" (stopped)="onStop($event,i)"
+  <div *ngFor="let app of chosenApps; index as i" (started)="onStart($event,i)" (stopped)="onStop($event,i)"
        [ngStyle]="app.onTopStyle()" [position]="{x: itemEndPosition[i].x, y:itemEndPosition[i].y}" ngDraggable>
     <!--app.onTopStyle() test more-->
     <div class="app-icon" [ngStyle]="app.setBackground()" (click)="previewHandler(app)">
@@ -24,7 +24,7 @@
 
         </div>
       </div>
-      <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)"></iframe> <!-- ngDraggable-->
+      <!-- <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)"></iframe> <!-- ngDraggable-->
       <!-- <object type="text/html" [data]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ngDraggable></object>-->
 
     </div>
