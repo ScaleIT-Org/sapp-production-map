@@ -6,6 +6,7 @@
        [ngStyle]="app.onTopStyle()" [position]="{x: app.endPosition.x, y:app.endPosition.y}" ngDraggable>
     <!--app.onTopStyle() test more-->
     <div class="app-icon" [ngStyle]="app.setBackground()" (click)="previewHandler(app)">
+
       <p>{{app.name}}</p>
     </div>
     <!-- <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)"></iframe>-->
@@ -24,11 +25,12 @@
 
         </div>
       </div>
-      <!-- <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)"></iframe> <!-- ngDraggable-->
-      <!-- <object type="text/html" [data]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ngDraggable></object>-->
+      <!--<iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ></iframe> <!-- ngDraggable-->
+      <object type="text/html" [data]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ngDraggable></object>
 
     </div>
 
   </div>
+
   <!--</ng-template>-->
 </ion-row>

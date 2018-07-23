@@ -19,6 +19,7 @@ import {SharedLocalStorageProvider} from "../../providers/localstorageservice/sh
   templateUrl: "appicon-widget.html"
 })
 export class AppiconWidgetComponent {
+
   chosenApps: Array<App>;
   public smokescreen: boolean = false;
 
@@ -176,4 +177,5 @@ export class AppiconWidgetComponent {
     this.chosenApps[index].previewToggle();
     // this.chechIfMoved(index);
   }
+
 }

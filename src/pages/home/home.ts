@@ -34,6 +34,7 @@ export class HomePage {
     this.reader = new FileReader();
     this.selectedMap = "assets/imgs/grundriss.png"; //set a default map to show until user selects something else
     this.isScrollingEnabled = this.sharedLocalStorageProvider.getIsScrolling();
+
   }
 
   ionViewDidLoad() {

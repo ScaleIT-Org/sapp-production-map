@@ -154,7 +154,7 @@ export class ModalCatalogPage {
         if (iconUrl[0]) newApp.imgUrl = iconUrl[0]["value"];
         if (userUrl[0]) {
           console.log("Test added url is " + userUrl[0]["value"]);
-          newApp.url = this.sanitizer.bypassSecurityTrustResourceUrl(userUrl[0]["value"]);
+          newApp.url = userUrl[0]["value"];
         }
 
         newApp.status = AppStatus.Up;  //TODO: check whether the app is available (online)
