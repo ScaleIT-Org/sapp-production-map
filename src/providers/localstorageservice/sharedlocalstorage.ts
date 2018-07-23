@@ -34,12 +34,11 @@ export class SharedLocalStorageProvider {
     this.scrollingControl = new BehaviorSubject(this.isScrolling);
     this.chosenAppsControl = new BehaviorSubject<Array<App>>([]);
 
-    if (this.chosenApps === null){
-      this.chosenApps = [];
-    }
+    this.chosenApps = [];
+
 
     //this.chosenApps[0]=new App();
-    console.log("test 1 "+this.chosenApps.length);
+    //console.log("test 1 "+this.chosenApps.length);
   }
 
   toggleScrolling() {
@@ -55,11 +54,11 @@ export class SharedLocalStorageProvider {
   getScrollingControl() {
     return this.scrollingControl;
   }
+  
 
   getChosenAppsControl() {
     return this.chosenAppsControl;
   }
-
 
   getChosenApps() {
     return this.chosenApps;
