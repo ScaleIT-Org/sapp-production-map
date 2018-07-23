@@ -39,6 +39,7 @@ export class HomePage {
   ionViewDidLoad() {
     this.sharedLocalStorageProvider.getScrollingControl().subscribe(message => {
       this.isScrollingEnabled = message;
+      console.log("home.ts: home page received toggle scrolling event to " + message);
     });
   }
 

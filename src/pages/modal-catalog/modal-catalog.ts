@@ -44,6 +44,12 @@ export class ModalCatalogPage {
     this.chosenApps = [];
     this.previousUrlRegistry = "";
 
+    this.urlRegistry = this.sharedLocalStorageProvider.getRegistryUrl();
+    this.sharedLocalStorageProvider.getRegistryUrlControl().subscribe(newUrl => {
+      this.urlRegistry = newUrl;
+      console.log("process event of changed url in localstorage");
+    });
+
     /*
     this.apps = new Array();
     this.getData("");
@@ -78,7 +84,6 @@ export class ModalCatalogPage {
 
   // this method is executed after each loading of this page
   ionViewDidLoad() {
-    this.urlRegistry = 'http://staging.teco.edu:49501';
     console.log('ionViewDidLoad ModalCatalogPage');
   }
 
@@ -92,6 +97,8 @@ export class ModalCatalogPage {
       this.apps = [];
     }
     if (this.urlRegistry != "") {
+      this.sharedLocalStorageProvider.setRegistryUrl(this.urlRegistry);
+      console.log("set new url regitstry in local storage " + this.urlRegistry);
       this.getData();
     }
 

@@ -16,10 +16,12 @@ export class SharedLocalStorageProvider {
 
   private scrollingControl: BehaviorSubject<boolean>;
   private chosenAppsControl: BehaviorSubject<Array<App>>;
+  private registryUrlControl: BehaviorSubject<string>;
 
   chosenApps: Array<App>;
 
   @LocalStorage() isScrolling: boolean;
+  @LocalStorage() registryUrl: string;
 
   constructor() {
 
@@ -29,12 +31,25 @@ export class SharedLocalStorageProvider {
       this.isScrolling = true;
     }
 
+    this.chosenApps = [];
+
+    if (this.registryUrl === null) {
+      console.log("url string was not set in local storage");
+      this.registryUrl = 'http://';
+    }
+
+
     console.log('In constructor of  SharedLocalStorageProvider Provider, scrolling is ' + this.isScrolling);
 
     this.scrollingControl = new BehaviorSubject(this.isScrolling);
-    this.chosenAppsControl = new BehaviorSubject<Array<App>>([]);
+    this.scrollingControl.subscribe(newScrolling => this.isScrolling = newScrolling);
 
-    this.chosenApps = [];
+    this.chosenAppsControl = new BehaviorSubject<Array<App>>([]);
+    this.chosenAppsControl.subscribe(newChosenApps => this.chosenApps = newChosenApps);
+
+    this.registryUrlControl = new BehaviorSubject<string>(this.registryUrl);
+    this.registryUrlControl.subscribe(newUrl => this.registryUrl = newUrl);
+
 
 
     //this.chosenApps[0]=new App();
@@ -54,7 +69,6 @@ export class SharedLocalStorageProvider {
   getScrollingControl() {
     return this.scrollingControl;
   }
-  
 
   getChosenAppsControl() {
     return this.chosenAppsControl;
@@ -72,6 +86,20 @@ export class SharedLocalStorageProvider {
   setChosenApps() {
     this.chosenAppsControl.next(this.chosenApps);
     console.log("added event with " + this.chosenApps.length + " apps");
+  }
+
+  getRegistryUrl() {
+    return this.registryUrl;
+  }
+
+  getRegistryUrlControl() {
+    return this.registryUrlControl;
+  }
+
+  setRegistryUrl(newUrl: string) {
+    this.registryUrl = newUrl;
+    console.log("sharedlocalstorage.ts: now the url is " + this.registryUrl);
+    this.getRegistryUrlControl().next(newUrl);
   }
 }
 

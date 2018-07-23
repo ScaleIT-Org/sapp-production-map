@@ -43,6 +43,8 @@ export class MenuPage {
   ionViewDidLoad() {
     this.sharedLocalStorageProvider.getScrollingControl().subscribe(message => {
       this.isScrollingEnabled = message;
+      console.log("menu.ts: menu page received toggle scrolling event to " + message);
+
     });
   }
 
