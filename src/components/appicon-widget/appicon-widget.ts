@@ -21,8 +21,7 @@ import {SharedLocalStorageProvider} from "../../providers/localstorageservice/sh
 export class AppiconWidgetComponent {
   chosenApps: Array<App>;
   public smokescreen: boolean = false;
-  @LocalStorage() positionString: string;
-  itemEndPosition: Array<{ x: number, y: number }>;
+
   ifMoved: Array<boolean>;
   start = {x: 0, y: 0};
   end = {x: 0, y: 0};
@@ -31,41 +30,17 @@ export class AppiconWidgetComponent {
               private dataProvider: HttpDataProvider,
               private sharedLocalStorageProvider: SharedLocalStorageProvider,
               private cookieService: CookieService) {
-    //constructor(private dataProvider: HttpDataProvider) {
     console.log("Initializing App Icons...");
     this.smokescreen = false;
     this.chosenApps = this.sharedLocalStorageProvider.getChosenApps();
     this.sharedLocalStorageProvider.getChosenAppsControl().subscribe(newChosenApps => {
       this.chosenApps = newChosenApps;
-      this.itemEndPosition = new Array(this.chosenApps.length);
       this.ifMoved = new Array(this.chosenApps.length);
       for (let i = 0; i < this.chosenApps.length; i++) {
-        console.log("initialization of shit that does not work! Iteration " + i);
-        this.itemEndPosition[i] = {x: 0, y: 0};
         this.ifMoved[i] = false;
       }
 
-      /*if (this.positionString.length != 0) {
-        var position = JSON.parse(this.positionString);
-        for (let i = 0; i < this.chosenApps.length; i++) {
-          this.chosenApps[i].endPosition = {x: position[i].x, y: position[i].y};
-          //this.itemEndPosition[i] = {x: endPosition[i].x, y: endPosition[i].y};
-        }
-      }*/
     });
-
-    //console.log("test 2 " + this.chosenApps.length);
-
-    this.positionString = "";
-
-    if (this.positionString.length != 0) {
-      var position = JSON.parse(this.positionString);
-      for (let i = 0; i < this.chosenApps.length; i++) {
-        //this.itemEndPosition[i] = {x: position[i].x, y: position[i].y};
-        this.chosenApps[i].endPosition = {x: position[i].x, y: position[i].y};
-
-      }
-    }
 
 
     //let cookieitemEndPosition = this.cookieService.getObject('homeitemEndPosition');
@@ -111,8 +86,7 @@ export class AppiconWidgetComponent {
   }
 
   ngAfterViewInit() {
-    console.log('data is read');
-    console.log("AppWidgetICon ngAfterViewInit - length of shit is " + this.itemEndPosition.length);
+
   }
 
   public log(text: string) {
@@ -148,18 +122,6 @@ export class AppiconWidgetComponent {
   delete(index: number) {
     this.sharedLocalStorageProvider.delChosenAppsByIndex(index);
   }
-
-  /*
-    indexOfApp(app: App): number {
-      let index = -1;
-      for (let i = 0; i < this.chosenApps.length; i++) {
-        if (app.name == this.chosenApps[i].name) {
-          index = i;
-        }
-      }
-      return index;
-    }
-  */
 
   //save endPosition, by transforming array of positions into a string and saving it in localStorage
   saveStyle(index) {

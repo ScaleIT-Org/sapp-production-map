@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {LocalStorage} from "ngx-store";
 import {App} from "../../components/appicon-widget/app";
-import {Observable} from "rxjs/Observable";
 
 /*
   Generated class for the SharedLocalStorageProvider provider.
@@ -36,18 +35,10 @@ export class SharedLocalStorageProvider {
       console.log("Local storage for chosenAppsJSON is already initialized...");
       this.chosenApps = JSON.parse(this.chosenAppsJSON);
       this.chosenApps = this.objToArrayOfApps(this.chosenApps);
-      //console.log("... and the title of the first is " + this.chosenApps[0].name);
-      //console.log("after init the chosenApp has type of " + this.chosenApps.constructor.name);
-      //console.log("after init the elelment of chosenApp has tyoe of " + this.chosenApps[0].url.constructor.name);
     } else {
       console.log("Local storage for chosenAppsJSON is not initialized");
       this.chosenApps = [];
     }
-
-    /*if (this.chosenApps === null) {
-      this.chosenApps = [];
-      this.chosenAppsJSON = JSON.stringify(this.chosenApps);
-    }*/
 
     if (this.registryUrl === null) {
       console.log("url string was not set in local storage");
@@ -70,10 +61,6 @@ export class SharedLocalStorageProvider {
       console.log("==> new length is " + this.chosenApps.length);
     });
 
-
-
-    //this.chosenApps[0]=new App();
-    //console.log("test 1 "+this.chosenApps.length);
   }
 
   objToArrayOfApps(arrayOfObj: Array<any>) {
@@ -112,25 +99,21 @@ export class SharedLocalStorageProvider {
   }
 
   getChosenApps() {
-    console.log("initialization in appicon widget kurwa and len is " + this.chosenApps.length);
     return this.chosenApps;
   }
 
   setChosenAppsByIndex(index: number, app: App) {
-    //this.chosenApps[index] = app;
     this.chosenApps.push(app);
   }
 
   delChosenAppsByIndex(index: number){
     this.chosenApps.splice(index, 1);
-    console.log(index + " app was deleted and new lenght is " + this.chosenApps.length);
     this.chosenAppsControl.next(this.chosenApps);
 
   }
 
   setChosenApps() {
     this.chosenAppsControl.next(this.chosenApps);
-    console.log("added event with " + this.chosenApps.length + " apps");
   }
 
   getRegistryUrl() {
@@ -142,46 +125,8 @@ export class SharedLocalStorageProvider {
   }
 
   setRegistryUrl(newUrl: string) {
-    //this.registryUrl = newUrl;
     console.log("sharedlocalstorage.ts: now the url is " + this.registryUrl);
     this.getRegistryUrlControl().next(newUrl);
   }
 }
 
-/*
-@Injectable()
-export class SharedLocalStorageProvider {
-
-  private scrollingControl = new BehaviorSubject(true);
-  scrollingControlStream = this.scrollingControl.asObservable();
-
-  chosenApps: Array<App>;
-  @LocalStorage() isScrolling: boolean;
-
-  constructor() {
-    console.log('Hello SharedLocalStorageProvider Provider');
-    this.isScrolling = true;
-    this.chosenApps = [];
-    this.chosenApps[0]=new App();
-    console.log("test 1 "+this.chosenApps.length);
-  }
-
-  toggleScrolling() {
-    this.isScrolling = !this.isScrolling;
-    this.scrollingControl.next(this.isScrolling);
-    console.log('Provider changed scrolling to ' + this.isScrolling);
-  }
-
-  getIsScrolling() {
-    return this.isScrolling;
-  }
-
-
-  getChosenApps() {
-    return this.chosenApps;
-  }
-
-  setChosenAppsByIndex(index: number, app: App) {
-    this.chosenApps[index] = app;
-  }
-}*/
