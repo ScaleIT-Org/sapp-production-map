@@ -16,9 +16,8 @@ export class App {
     public imgUrl: string = "assets/imgs/scaleit-waben.png",
     public previewPosition: string = "left",
     public iconLocalHelper: string = "",
-
-  ) {
-  }
+    public endPosition: {x:number, y: number} = {x: 0, y: 0}
+) {}
 
   public previewing: boolean;
 

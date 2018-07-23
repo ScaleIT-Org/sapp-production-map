@@ -27,15 +27,16 @@ export class AppiconWidgetComponent {
   start = {x: 0, y: 0};
   end = {x: 0, y: 0};
 
-  constructor(public sanitizer: DomSanitizer, private dataProvider: HttpDataProvider, private sharedLocalStorageProvider: SharedLocalStorageProvider, private cookieService: CookieService) {
+  constructor(public sanitizer: DomSanitizer,
+              private dataProvider: HttpDataProvider,
+              private sharedLocalStorageProvider: SharedLocalStorageProvider,
+              private cookieService: CookieService) {
     //constructor(private dataProvider: HttpDataProvider) {
     console.log("Initializing App Icons...");
     this.smokescreen = false;
     this.chosenApps = this.sharedLocalStorageProvider.getChosenApps();
-    //this.chosenApps = sharedLocalStorageProvider.getChosenApps(); // THIS IS SHIT BECAUSE JAVASCRIPT, KURWA
     this.sharedLocalStorageProvider.getChosenAppsControl().subscribe(newChosenApps => {
       this.chosenApps = newChosenApps;
-      console.log("event received and processed, the received apps length is " + newChosenApps.length);
       this.itemEndPosition = new Array(this.chosenApps.length);
       this.ifMoved = new Array(this.chosenApps.length);
       for (let i = 0; i < this.chosenApps.length; i++) {
@@ -43,17 +44,26 @@ export class AppiconWidgetComponent {
         this.itemEndPosition[i] = {x: 0, y: 0};
         this.ifMoved[i] = false;
       }
+
+      /*if (this.positionString.length != 0) {
+        var position = JSON.parse(this.positionString);
+        for (let i = 0; i < this.chosenApps.length; i++) {
+          this.chosenApps[i].endPosition = {x: position[i].x, y: position[i].y};
+          //this.itemEndPosition[i] = {x: endPosition[i].x, y: endPosition[i].y};
+        }
+      }*/
     });
 
-    console.log("test 2 " + this.chosenApps.length);
-
+    //console.log("test 2 " + this.chosenApps.length);
 
     this.positionString = "";
 
     if (this.positionString.length != 0) {
       var position = JSON.parse(this.positionString);
       for (let i = 0; i < this.chosenApps.length; i++) {
-        this.itemEndPosition[i] = {x: position[i].x, y: position[i].y};
+        //this.itemEndPosition[i] = {x: position[i].x, y: position[i].y};
+        this.chosenApps[i].endPosition = {x: position[i].x, y: position[i].y};
+
       }
     }
 
@@ -136,7 +146,7 @@ export class AppiconWidgetComponent {
   }
 
   delete(index: number) {
-    this.chosenApps.splice(index, 1);
+    this.sharedLocalStorageProvider.delChosenAppsByIndex(index);
   }
 
   /*
@@ -151,10 +161,12 @@ export class AppiconWidgetComponent {
     }
   */
 
-  //save position, by transforming array of positions into a string and saving it in localStorage
+  //save endPosition, by transforming array of positions into a string and saving it in localStorage
   saveStyle(index) {
-    this.itemEndPosition[index] = {x: this.end.x, y: this.end.y};
-    this.positionString = JSON.stringify(this.itemEndPosition);
+    //this.itemEndPosition[index] = {x: this.end.x, y: this.end.y};
+    this.chosenApps[index].endPosition = {x: this.end.x, y: this.end.y};
+    this.sharedLocalStorageProvider.getChosenAppsControl().next(this.chosenApps);
+    //this.positionString = JSON.stringify(this.itemEndPosition);
   }
 
 

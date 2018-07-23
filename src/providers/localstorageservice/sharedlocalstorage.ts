@@ -15,23 +15,39 @@ export class SharedLocalStorageProvider {
 
 
   private scrollingControl: BehaviorSubject<boolean>;
-  private chosenAppsControl: BehaviorSubject<Array<App>>;
   private registryUrlControl: BehaviorSubject<string>;
+  private chosenAppsControl: BehaviorSubject<Array<App>>;
 
-  chosenApps: Array<App>;
+  private chosenApps: Array<App>;
+  @LocalStorage() chosenAppsJSON: string;
 
   @LocalStorage() isScrolling: boolean;
   @LocalStorage() registryUrl: string;
 
   constructor() {
 
-
     if (this.isScrolling === null) {
       console.log("Local storage for scrolling was empty");
       this.isScrolling = true;
     }
 
-    this.chosenApps = [];
+    console.log("before restoring/init of chosenAppsJSON");
+    if (this.chosenAppsJSON !== null) {
+      console.log("Local storage for chosenAppsJSON is already initialized...");
+      this.chosenApps = JSON.parse(this.chosenAppsJSON);
+      this.chosenApps = this.objToArrayOfApps(this.chosenApps);
+      //console.log("... and the title of the first is " + this.chosenApps[0].name);
+      //console.log("after init the chosenApp has type of " + this.chosenApps.constructor.name);
+      //console.log("after init the elelment of chosenApp has tyoe of " + this.chosenApps[0].url.constructor.name);
+    } else {
+      console.log("Local storage for chosenAppsJSON is not initialized");
+      this.chosenApps = [];
+    }
+
+    /*if (this.chosenApps === null) {
+      this.chosenApps = [];
+      this.chosenAppsJSON = JSON.stringify(this.chosenApps);
+    }*/
 
     if (this.registryUrl === null) {
       console.log("url string was not set in local storage");
@@ -44,16 +60,37 @@ export class SharedLocalStorageProvider {
     this.scrollingControl = new BehaviorSubject(this.isScrolling);
     this.scrollingControl.subscribe(newScrolling => this.isScrolling = newScrolling);
 
-    this.chosenAppsControl = new BehaviorSubject<Array<App>>([]);
-    this.chosenAppsControl.subscribe(newChosenApps => this.chosenApps = newChosenApps);
-
     this.registryUrlControl = new BehaviorSubject<string>(this.registryUrl);
     this.registryUrlControl.subscribe(newUrl => this.registryUrl = newUrl);
+
+    this.chosenAppsControl = new BehaviorSubject<Array<App>>(this.chosenApps);
+    this.chosenAppsControl.subscribe(newChosenApps => {
+      this.chosenApps = newChosenApps;
+      this.chosenAppsJSON = JSON.stringify(this.chosenApps); //need to convert 'this.chosenApps' array to JSON, since localstorage can save only JSONs
+      console.log("==> new length is " + this.chosenApps.length);
+    });
 
 
 
     //this.chosenApps[0]=new App();
     //console.log("test 1 "+this.chosenApps.length);
+  }
+
+  objToArrayOfApps(arrayOfObj: Array<any>) {
+    let apps: Array<App> = [];
+    arrayOfObj.forEach(obj => {
+      let app: App = new App();
+      if (obj.name != undefined) app.name = obj.name;
+      if (obj.url != undefined) app.url = obj.url;
+      if (obj.imgUrl != undefined) app.imgUrl = obj.imgUrl;
+      if (obj.iconLocalHelper != undefined) app.iconLocalHelper = obj.iconLocalHelper;
+      if (obj.endPosition != undefined) {
+        app.endPosition.x = obj.endPosition.x;
+        app.endPosition.y = obj.endPosition.y;
+      }
+      apps.push(app);
+    });
+    return apps;
   }
 
   toggleScrolling() {
@@ -75,12 +112,20 @@ export class SharedLocalStorageProvider {
   }
 
   getChosenApps() {
+    console.log("initialization in appicon widget kurwa and len is " + this.chosenApps.length);
     return this.chosenApps;
   }
 
   setChosenAppsByIndex(index: number, app: App) {
     //this.chosenApps[index] = app;
     this.chosenApps.push(app);
+  }
+
+  delChosenAppsByIndex(index: number){
+    this.chosenApps.splice(index, 1);
+    console.log(index + " app was deleted and new lenght is " + this.chosenApps.length);
+    this.chosenAppsControl.next(this.chosenApps);
+
   }
 
   setChosenApps() {
@@ -97,7 +142,7 @@ export class SharedLocalStorageProvider {
   }
 
   setRegistryUrl(newUrl: string) {
-    this.registryUrl = newUrl;
+    //this.registryUrl = newUrl;
     console.log("sharedlocalstorage.ts: now the url is " + this.registryUrl);
     this.getRegistryUrlControl().next(newUrl);
   }

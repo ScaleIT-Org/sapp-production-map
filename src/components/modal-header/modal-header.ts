@@ -23,6 +23,5 @@ export class ModalHeaderComponent {
 
   closeModal() {
     this.navCtrl.pop();
-
   }
 }
