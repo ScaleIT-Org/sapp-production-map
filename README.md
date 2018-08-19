@@ -20,6 +20,25 @@ Software ist meist unsichtbar für den betrieblichen Hallenboden. Hinter einer H
     npm run build 
     # Run dev server
     npm run ionic:serve
+    
+   #### Development
+
+In order to simplify development we recommend working locally (or with a docker bind mount) and using the ionic hot reload feature of the ionic dev server
+
+    npm run ionic:serve
+    
+In order to pull from this repo as upstream you should use githubs rebasing feature:
+
+    git checkout alpine
+    git pull --rebase origin master
+
+    git checkout dev
+    git pull --rebase origin alpine
+
+Alternatively use cherry picking (or patching):
+
+    git cherry-pick d147423..2622049
+    git cherry-pick d147423
 
 ### Docker
 This app uses a multi stage build in order to create a very small production ready image. This results in an image size of about 70MB compared to the 300+MB size of the build image.
@@ -43,7 +62,15 @@ This app uses a multi stage build in order to create a very small production rea
 
 1) Ionic frontend with Angular
 2) Nginx Server for serving the built project (docker build only)
-3) Drag and drop items
+3) Pages and Navigation
+4) Data Provider
+5) Choose an image from a file system and upload it as a map
+6) Drag and drop items
+7) Download apps from registry, providing a correspoding registry-Url
+8) Select certain apps to be shown on the map (it is also possible to add multiple instances of one app)
+9) Selected apps as well as their positions are saved in the local storage, hence, after browser reload all aforementioned stuff will be restored from its previous state
+10) Delete any app from the map
+11) Disable and enable scrolling of the page 
 
 ### Technology Stack
     Node.js->(Typescript->Angular->Ionic)
@@ -60,6 +87,10 @@ This app uses a multi stage build in order to create a very small production rea
   docker-compose build 
   docker-compose up -d
 ```
+### Health Check (Optional)
+        #Build with healtcheck enabled
+        HEALTHCHECK --interval=5m --timeout=3s \
+        CMD curl -f http://localhost:5002/ || exit 1
 
 ## Configuration
 
@@ -67,36 +98,11 @@ This app uses a multi stage build in order to create a very small production rea
 
 ## Tests
   
-  - IsRunningTest: Tests if application is running
-  - qrcode-btn test: Tests if the qrcode-btn is deactivated and activated correctly 
-
+  -
 	
 ## Notes
-This is still a work in progress 
+This is still a work in progress  
 
-## Development
-
-In order to simplify development we recommend working locally (or with a docker bind mount) and using the ionic hot reload feature of the ionic dev server
-
-    npm run ionic:serve
-    
-In order to pull from this repo as upstream you should use githubs rebasing feature:
-
-    git checkout alpine
-    git pull --rebase origin master
-
-    git checkout dev
-    git pull --rebase origin alpine
-
-Alternatively use cherry picking (or patching):
-
-    git cherry-pick d147423..2622049
-    git cherry-pick d147423
-    
-## Health Check (Optional)
-        #Build with healtcheck enabled
-        HEALTHCHECK --interval=5m --timeout=3s \
-        CMD curl -f http://localhost:5002/ || exit 1
         
 ## Learning Material
 
