@@ -13,30 +13,42 @@
 
 <ion-content padding>
   <ion-card>
-    <ion-list>
-      <ion-item>
-        <ion-label color="primary" stacked>Registry URL</ion-label>
-        <ion-input type="text" [(ngModel)]="urlRegistry"></ion-input>
-      </ion-item>
-    </ion-list>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label color="primary" stacked>Registry URL</ion-label>
+          <ion-input type="text" [(ngModel)]="urlRegistry"></ion-input>
+        </ion-item>
+      </ion-list>
+      <button ion-button (click)="show()">Load</button>
+    </ion-card-content>
 
-    <button ion-button  (click)="show()">Load</button>
+
   </ion-card>
 
   <ion-card *ngIf="ifShow">
-    <ion-grid>
-      <ion-row>
-        <ion-col *ngFor="let app of apps;index as i" col-3>
-          <ion-card class="app-name" onmouseover="style.fontWeight='bold'" onmouseout="style.fontWeight='normal'"
-                    (click)="addApp(i)" [style.border]="appClicked[i]? ' thick solid gray':''">
-            <img src={{app.imgUrl}}>
-            <span>{{app.name}}</span>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <button ion-button class="done-button" (click)="submit()">Done</button>
-      </ion-row>
-    </ion-grid>
+    <ion-card-content>
+      <ion-grid>
+
+        <ion-row>
+          <ion-col *ngFor="let app of apps;index as i" col-3>
+            <ion-card class="app-name" onmouseover="style.fontWeight='bold'" onmouseout="style.fontWeight='normal'"
+                      (click)="addApp(i)" [style.border]="appClicked[i]? ' thick solid gray':''">
+              <img src={{app.imgUrl}}>
+              <span>{{app.name}}</span>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <button ion-button class="done-button" (click)="submit()">Done</button>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="ifError">
+    <ion-card-content>
+      <h2><span id="error_text">{{errorMessage[0]}}</span>{{errorMessage[1]}}</h2>
+    </ion-card-content>
   </ion-card>
 </ion-content>

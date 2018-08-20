@@ -27,6 +27,9 @@ export class ModalCatalogPage {
   urlRegistry: string;  //registry URL, must be provided by user
   previousUrlRegistry: string;
   registrySubscription: Subscription;
+  errorMessage: Array<string>; //it is an array, so that messages with a HTTP failure will be shown with the red color word "Error"
+                               // in the beginning and other messages just in black color without word "Error"
+  ifError: boolean;
 
   //the constructor is executed only once, i.e. after the app starts
   constructor(public sanitizer: DomSanitizer,
@@ -35,7 +38,8 @@ export class ModalCatalogPage {
               private sharedLocalStorageProvider: SharedLocalStorageProvider,
               public navParams: NavParams) {
     this.ifShow = false;
-
+    this.ifError = false;
+    this.errorMessage = new Array(2);
     if (this.chosenApps != null) {
       for (let i = 0; i < this.chosenApps.length; i++) {
         console.log(this.chosenApps[i].name);
@@ -50,36 +54,6 @@ export class ModalCatalogPage {
       console.log("process event of changed url in localstorage");
     });
 
-    /*
-    this.apps = new Array();
-    this.getData("");
-    this.apps.push(
-      new App(
-        "Ionic App",
-        "https://codecraft.tv",
-        //this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
-        AppStatus.Up,
-        "/assets/imgs/vis-app.png"
-      )
-    ); // this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:8100"),
-    this.apps.push(
-      new App(
-        "AOI Machine",
-        "https://codecraft.tv",
-        //this.sanitizer.bypassSecurityTrustResourceUrl("https://codecraft.tv"),
-        AppStatus.Up,
-        "/assets/imgs/machine-app.png",
-        "right"
-      )
-    ); // this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:3000"),
-    this.apps.push(
-      new App("test-app", "localhost:3000/", AppStatus.Down)
-    );
-    this.apps.push(
-      new App("test-app2", "localhost:3000/", AppStatus.Warning)
-    );
-    this.apps.push(new App("test-app3", "localhost:8100"));
-*/
   }
 
   // this method is executed after each loading of this page
@@ -88,10 +62,9 @@ export class ModalCatalogPage {
   }
 
   show() {
-    if (this.ifShow == false) {
-      this.ifShow = true;
-    }
-    // in case url should is changed but old apps are saved and there is still subscription to old url
+    //if case
+
+    // in case url should be changed but old apps are saved and there is still subscription to old url
     if (this.previousUrlRegistry != this.urlRegistry && this.registrySubscription != undefined) {
       this.registrySubscription.unsubscribe();
       this.apps = [];
@@ -106,7 +79,6 @@ export class ModalCatalogPage {
   }
 
   addApp(i: number) {
-    //this.chosenApps.push(app);
     this.appClicked[i] = !this.appClicked[i];
   }
 
@@ -115,7 +87,7 @@ export class ModalCatalogPage {
       for (let i = 0; i < this.appClicked.length; i++) {
         if (this.appClicked[i]) {
           console.log("show " + i + "-th app on the map");
-          this.sharedLocalStorageProvider.setChosenAppsByIndex(i,this.apps[i]);
+          this.sharedLocalStorageProvider.setChosenAppsByIndex(i, this.apps[i]);
         }
       }
       this.sharedLocalStorageProvider.setChosenApps();
@@ -138,7 +110,7 @@ export class ModalCatalogPage {
           .map(x => ({key: x["key"].split("/")[3], value: x["value"]}))
       }));
 
-      //let myapps: App[] = [];
+
       apps_data_JSON.forEach(app_data => {
         let newApp: App = new App();
 
@@ -162,12 +134,29 @@ export class ModalCatalogPage {
 
         this.apps.push(newApp);
 
-        this.appClicked = new Array(this.apps.length);
-        for (let i = 0; i < this.apps.length; i++) {
-          this.appClicked[i] = false;
-        }
+
       });
 
+      if (this.apps.length != 0) {
+        this.ifError = false;
+        this.ifShow = true;
+      } else {
+        this.ifShow = false;
+        this.ifError = true;
+        this.errorMessage[0] = "";
+        this.errorMessage[1] = "There are no apps in registry."
+      }
+
+      this.appClicked = new Array(this.apps.length);
+      for (let i = 0; i < this.apps.length; i++) {
+        this.appClicked[i] = false;
+      }
+    }, err => {
+      this.ifError = true;
+      this.ifShow = false;
+      this.errorMessage[0] = "Error:";
+      this.errorMessage[1] = "  no data could be retrieved.";
+      console.error('Error :', err.message);
     });
   }
 }
