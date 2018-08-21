@@ -24,6 +24,7 @@
   .button {
     background: map-get($colors, gray);
   }
+
   .button.active {
     background: map-get($colors, primary);
   }
@@ -34,8 +35,8 @@
     justify-content: center;
     align-items: center;
     //scaling fix
-    	// height: 2.5vw;
-    	// font-size: 1vw;
+    // height: 2.5vw;
+    // font-size: 1vw;
 
   }
   .ng-draggable {

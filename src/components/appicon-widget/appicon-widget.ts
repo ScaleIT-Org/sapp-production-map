@@ -2,10 +2,8 @@ import {HttpDataProvider} from './../../providers/http-data/http-data';
 import {
   Component
 } from "@angular/core";
-import {App, AppStatus} from "./app";
+import {App} from "./app";
 import {DomSanitizer} from "@angular/platform-browser";
-import {LocalStorage, SessionStorage, SharedStorage} from "ngx-store";
-import {CookieService} from "ngx-cookie";
 import {SharedLocalStorageProvider} from "../../providers/localstorageservice/sharedlocalstorage";
 
 /**
@@ -29,8 +27,7 @@ export class AppiconWidgetComponent {
 
   constructor(public sanitizer: DomSanitizer,
               private dataProvider: HttpDataProvider,
-              private sharedLocalStorageProvider: SharedLocalStorageProvider,
-              private cookieService: CookieService) {
+              private sharedLocalStorageProvider: SharedLocalStorageProvider) {
     console.log("Initializing App Icons...");
     this.smokescreen = false;
     this.chosenApps = this.sharedLocalStorageProvider.getChosenApps();
@@ -43,46 +40,35 @@ export class AppiconWidgetComponent {
 
     });
 
-
-    //let cookieitemEndPosition = this.cookieService.getObject('homeitemEndPosition');
     /*
-    if (cookieitemEndPosition) {
-      console.log(cookieitemEndPosition);
-      this.itemEndPosition = cookieitemEndPosition;
-    } else {
-      this.itemEndPosition = {};
-    }
-*/
-    /*
-    this.apps = new Array();
-    //this.getData("");
-    this.apps.push(
-      new App(
-        "Ionic App",
-        "https://codecraft.tv",
+        this.chosenApps.push(
+          new App(
+            "Ionic App",
+            "https://codecraft.tv",
 
-        AppStatus.Up,
-        "/assets/imgs/vis-app.png"
-      )
-    );
-    this.apps.push(
-      new App(
-        "AOI Machine",
-        "https://codecraft.tv",
+            AppStatus.Up,
+            "/assets/imgs/vis-app.png"
+          )
+        );
 
-        AppStatus.Up,
-        "/assets/imgs/machine-app.png",
-        "right"
-      )
-    );
-    this.apps.push(
-      new App("test-app", "localhost:3000/", AppStatus.Down)
-    );
-    this.apps.push(
-      new App("test-app2", "localhost:3000/", AppStatus.Warning)
-    );
-    this.apps.push(new App("test-app3", "localhost:8100"));
-    */
+        this.apps.push(
+          new App(
+            "AOI Machine",
+            "https://codecraft.tv",
+
+            AppStatus.Up,
+            "/assets/imgs/machine-app.png",
+            "right"
+          )
+        );
+        this.apps.push(
+          new App("test-app", "localhost:3000/", AppStatus.Down)
+        );
+        this.apps.push(
+          new App("test-app2", "localhost:3000/", AppStatus.Warning)
+        );
+        this.apps.push(new App("test-app3", "localhost:8100"));
+        */
 
   }
 

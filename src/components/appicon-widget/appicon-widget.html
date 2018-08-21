@@ -1,9 +1,10 @@
 <div id="smoke-screen" class="smoke-screen-modal-on" hide-on-click [hidden]="smokescreen" (click)="hideMe($event)"
      (onStatusChange)="hideMe($event)"></div>
-<ion-row>
+<ion-row #myBounds>
   <!--<ng-template ngFor let-app [ngForOf]="apps" let-i="index"  >-->
   <div *ngFor="let app of chosenApps; index as i" (started)="onStart($event,i)" (stopped)="onStop($event,i)"
-       [ngStyle]="app.onTopStyle()" [position]="{x: app.endPosition.x, y:app.endPosition.y}" ngDraggable>
+       [ngStyle]="app.onTopStyle()" [position]="{x: app.endPosition.x, y:app.endPosition.y}" ngDraggable
+       [bounds]="myBounds" [inBounds]="true"  [outOfBounds]="{ top: false, right: false, bottom: true, left: false }">
     <!--app.onTopStyle() test more-->
     <div class="app-icon" [ngStyle]="app.setBackground()" (click)="previewHandler(app)">
 

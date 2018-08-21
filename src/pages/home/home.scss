@@ -8,6 +8,6 @@ page-home {
   }
 
   .icons{
-    border: thick solid $toolbar-background;
+    border: thick solid map-get($colors, primary);
   }
 }
