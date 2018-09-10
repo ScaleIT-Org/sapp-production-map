@@ -1,5 +1,4 @@
 import {SafeResourceUrl} from "@angular/platform-browser";
-import {Output, EventEmitter} from "@angular/core";
 
 export enum AppStatus {
   Up = 1,

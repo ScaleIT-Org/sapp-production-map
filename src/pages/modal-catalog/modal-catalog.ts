@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {App, AppStatus} from "../../components/appicon-widget/app";
-import {SharedStorage} from "ngx-store";
 import {DomSanitizer} from "@angular/platform-browser";
 import {HttpDataProvider} from "../../providers/http-data/http-data";
 import {Subscription} from "rxjs/Subscription";

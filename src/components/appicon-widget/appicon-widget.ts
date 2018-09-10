@@ -1,4 +1,3 @@
-import {HttpDataProvider} from './../../providers/http-data/http-data';
 import {
   Component
 } from "@angular/core";
@@ -26,7 +25,6 @@ export class AppiconWidgetComponent {
   end = {x: 0, y: 0};
 
   constructor(public sanitizer: DomSanitizer,
-              private dataProvider: HttpDataProvider,
               private sharedLocalStorageProvider: SharedLocalStorageProvider) {
     console.log("Initializing App Icons...");
     this.smokescreen = false;
