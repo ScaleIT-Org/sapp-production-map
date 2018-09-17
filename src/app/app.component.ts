@@ -7,7 +7,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   templateUrl: 'app.html'
 })
 export class ScaleITDomainApp {
-  rootPage:any = 'user';
+
+  rootPage:any = 'menu';
+
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -17,5 +19,8 @@ export class ScaleITDomainApp {
       splashScreen.hide();
     });
   }
+
+
+
 }
 

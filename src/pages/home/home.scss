@@ -1,2 +1,13 @@
 page-home {
+  .no-scroll .scroll-content{
+    overflow: hidden;
+  }
+
+  .no-class{
+
+  }
+
+  .icons{
+    border: thick solid map-get($colors, primary);
+  }
 }

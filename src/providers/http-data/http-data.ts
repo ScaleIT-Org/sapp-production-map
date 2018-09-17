@@ -26,7 +26,7 @@ export class HttpDataProvider {
 
   // Reactive programming: Provide an observable for the figures
   getData(path: string = "data.json"): Observable<Object[]> {
-    return this.http.get<Object[]>(this._baseUrl + path);
+    return this.http.get<Object[]>(this._baseUrl);
   }
 
   get baseUrl(){

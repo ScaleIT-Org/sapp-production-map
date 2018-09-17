@@ -3,15 +3,30 @@
   <app-header pageName=""></app-header>
 </ion-header>
 
-<ion-content padding>
+
+<ion-content padding [ngClass]="checkScrolling() ? 'no-class' : 'no-scroll' ">
+
+  <!-- hide the input field to show the "select map" button only -->
+  <input
+    style="display: none"
+    type="file" (change)="onFileChanged($event)"
+    #fileInput>
+  <ion-buttons>
+    <button ion-button (click)="fileInput.click()">Select Map</button>
+    <button ion-button (click)="presentModal()">Select App</button>
+  </ion-buttons>
+
 
   <ion-card>
-    <ion-card-content>
-       <appicon-widget></appicon-widget>
+    <ion-card-content  class="icons">
+      <div>
+        <appicon-widget></appicon-widget>
+      </div>
     </ion-card-content>
 
-    <ion-card-content>
-      <img src="assets/imgs/grundriss.png" />
+    <!-- show a photo of the selected map -->
+    <ion-card-content >
+      <img [src]="selectedMap"/>
     </ion-card-content>
   </ion-card>
 

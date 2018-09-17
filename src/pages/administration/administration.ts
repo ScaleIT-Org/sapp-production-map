@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { HttpDataProvider } from "../../providers/http-data/http-data";
-import { App, AppStatus } from "../../components/appicon-widget/app";
 
 /**
  * Generated class for the AdministrationPage page.
@@ -31,7 +30,7 @@ export class AdministrationPage {
     console.log("ionViewDidLoad AdministrationPage");
   }
 
-  getData(path: string) {
+  /*getData(path: string) {
     let dataObserver = this.dataProvider.getData(path);
 
     dataObserver.subscribe(dataFromProvider => {
@@ -66,5 +65,5 @@ export class AdministrationPage {
       this.testData = myapps;
       console.log("Data filtered:" + this.testData);
     });
-  }
+  }*/
 }

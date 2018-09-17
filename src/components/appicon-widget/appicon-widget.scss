@@ -1,22 +1,30 @@
 appicon-widget {
   .app-icon {
     width: 7vw;
+    height: 7vw;
     border: thick solid;
     border-color: map-get($colors, disabled);
     background-color: white;
     text-align: center;
+
   }
 
-  .app-icon span {
+  ion-img {
+  }
+
+  .app-icon p {
     color: gray;
     font-weight: bold;
     font-size: 0.9vw;
+    position:absolute;
+    width:100%;
+    bottom:0;
+    text-align:center;
   }
 
   .app-previewer {
     position: absolute;
     min-width: 10vw;
-
     // left: 7vw;
     top: 0px;
     // z-index: 100;
@@ -43,6 +51,9 @@ appicon-widget {
   .widget-control {
     float: right;
   }
+  button{
+    background-color: lightgray;
+  }
 
   .smoke-screen-modal-on {
     position: fixed;
@@ -57,4 +68,5 @@ appicon-widget {
   .smoke-screen-modal-off {
     display: none;
   }
+
 }
