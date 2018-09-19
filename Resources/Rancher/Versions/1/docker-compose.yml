@@ -4,3 +4,34 @@ services:
         image: scaleit-app-pool.ondics.de:5000/scaleit-app-pool/de-kit-production-map-app:1.1
         ports:
           - "51100:80"
+
+    com-iao-platform-app-registration-sidecar:
+        image: scaleit-app-pool.ondics.de:5000/scaleit-app-pool/de-kit-sidecar-registration:1.0
+        environment:
+          - ETCD_IP=10.0.0.200
+          - ETCD_PORT=49501
+          - APP_PORT=51100
+          - APP_ID=de-kit-production-map-app_1
+          - APP_NAME=de-kit-production-map-app
+          - APP_TITLE=Production Map App
+          - APP_SHORTDESCRIPTION=Digital Production Map
+          - APP_DESCRIPTION=The Digital Production Map helps give an overview of the physical and digital production landscape
+          - APP_CATEGORY=domainApp
+          - APP_STATUS=online
+          - APP_ICON_URL=http://10.0.0.200:51100/assets/icon/favicon.ico
+          - APP_USER_URL=http://10.0.0.200:51100/#/pages/user
+          - APP_USER_DOC_URL=
+          - APP_USER_STATUS_URL=
+          - APP_DEV_DOC_URL=
+          - APP_DEV_SWAGGER_URL=
+          - APP_ADMIN_URL=http://10.0.0.200:51100/#/admin
+          - APP_ADMIN_CONFIG_URL=
+          - APP_ADMIN_DOC_URL=
+          - APP_ADMIN_LOG_URL=
+          - APP_ADMIN_STATUS_URL=
+          - APP_API_ENTRYPOINT=
+          - APP_UPDATEDAT=2018-09-19T13:32:16.581Z
+          - APP_TYPE=domainApp
+
+
+

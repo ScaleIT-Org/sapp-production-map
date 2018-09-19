@@ -2,5 +2,5 @@ version: '2'
 
 catalog:
   name: "de-kit-production-map-app"
-  version: "latest"
+  version: "1.1"
   description: "Production Map App"
