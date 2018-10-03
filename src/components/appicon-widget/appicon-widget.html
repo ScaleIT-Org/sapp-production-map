@@ -14,6 +14,9 @@
     <div class="app-previewer" [ngStyle]="app.previewStyle()">
       <div class="widget-bar">{{app.name}}
         <div class="widget-control">
+          <button icon-only (click)="loadURLinNewTab(app.url)">
+            <ion-icon name="open"></ion-icon>
+          </button>
           <button icon-only (click)="undo(i)">
             <ion-icon name="undo"></ion-icon>
           </button>

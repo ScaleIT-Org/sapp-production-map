@@ -104,6 +104,10 @@ export class AppiconWidgetComponent {
 
   }
 
+  public loadURLinNewTab(url: string){
+    window.open(url, "_blank", "location=yes");
+  }
+
   delete(index: number) {
     this.sharedLocalStorageProvider.delChosenAppsByIndex(index);
   }
