@@ -30,7 +30,7 @@ appicon-widget {
     // z-index: 100;
   }
 
-  .app-previewer object {
+  .app-previewer iframe {
     overflow: auto;
     width: 50vw;
     height: 30vw;
@@ -45,6 +45,7 @@ appicon-widget {
     color: black;
     background-color: lightgray;
 
+    overflow:auto;
     font-size: 1.2vw;
   }
 

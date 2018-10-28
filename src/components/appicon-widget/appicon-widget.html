@@ -4,13 +4,11 @@
   <!--<ng-template ngFor let-app [ngForOf]="apps" let-i="index"  >-->
   <div *ngFor="let app of chosenApps; index as i" (started)="onStart($event,i)" (stopped)="onStop($event,i)"
        [ngStyle]="app.onTopStyle()" [position]="{x: app.endPosition.x, y:app.endPosition.y}" ngDraggable
-       [bounds]="myBounds" [inBounds]="true"  [outOfBounds]="{ top: false, right: false, bottom: true, left: false }">
+       [bounds]="myBounds" [inBounds]="true" [outOfBounds]="{ top: false, right: false, bottom: true, left: false }">
     <!--app.onTopStyle() test more-->
     <div class="app-icon" [ngStyle]="app.setBackground()" (click)="previewHandler(app)">
-
       <p>{{app.name}}</p>
     </div>
-    <!-- <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)"></iframe>-->
     <div class="app-previewer" [ngStyle]="app.previewStyle()">
       <div class="widget-bar">{{app.name}}
         <div class="widget-control">
@@ -29,8 +27,7 @@
 
         </div>
       </div>
-      <!--<iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ></iframe> <!-- ngDraggable-->
-      <object type="text/html" [data]="sanitizer.bypassSecurityTrustResourceUrl(app.url)" ngDraggable></object>
+      <iframe [src]="app.url | safeUrl"></iframe>
 
     </div>
 

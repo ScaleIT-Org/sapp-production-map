@@ -104,7 +104,7 @@ export class AppiconWidgetComponent {
 
   }
 
-  public loadURLinNewTab(url: string){
+  public loadURLinNewTab(url: string) {
     window.open(url, "_blank", "location=yes");
   }
 
@@ -165,5 +165,4 @@ export class AppiconWidgetComponent {
     this.chosenApps[index].previewToggle();
     // this.chechIfMoved(index);
   }
-
 }
