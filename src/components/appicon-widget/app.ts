@@ -44,13 +44,17 @@ export class App {
         break;
     }
     return {
-      "border-color": result,
-      "background-image": 'url(' + this.imgUrl + ')',
-      "background-repeat": 'no-repeat',
-      "background-size": 'contain'
+      "border-color": result
     }
   }
-
+  //  to show name of an app in two rows if it is long, in one otherwise
+  setImageSize() {
+    if (this.name.length > 15) {
+      return {"height": "4vw"}
+    } else {
+      return {"height": "5vw"}
+    }
+  }
 
   previewToggle() {
     this.previewing = !this.previewing;

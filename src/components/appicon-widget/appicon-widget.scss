@@ -5,21 +5,19 @@ appicon-widget {
     border: thick solid;
     border-color: map-get($colors, disabled);
     background-color: white;
-    text-align: center;
 
   }
-
-  ion-img {
+  .app_background {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: inherit;
   }
 
-  .app-icon p {
+  .app_text p {
     color: gray;
     font-weight: bold;
     font-size: 0.9vw;
-    position:absolute;
-    width:100%;
-    bottom:0;
-    text-align:center;
+    text-align: center;
   }
 
   .app-previewer {
