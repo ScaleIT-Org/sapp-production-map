@@ -4,18 +4,7 @@ import { IonicPageModule} from "ionic-angular";
 import { HomePage } from "./home";
 import { ComponentsModule } from "../../components/components.module";
 import { PipesModule } from "../../pipes/pipes.module";
-import {CookieModule} from "ngx-cookie";
-import { DropzoneModule } from 'ngx-dropzone-wrapper';
-import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
-import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 
-
-const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
-  // Change this to your upload POST address:
-  url: 'https://httpbin.org/post',
-  maxFilesize: 50,
-  acceptedFiles: 'image/*'
-};
 
 @NgModule({
   declarations: [HomePage],
@@ -23,16 +12,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     IonicPageModule.forChild(HomePage),
     ComponentsModule,
     PipesModule,
-    DirectivesModule,
-    CookieModule.forRoot(),
-    DropzoneModule
+    DirectivesModule
   ],
-  bootstrap: [HomePage],
-  providers: [
-    {
-      provide: DROPZONE_CONFIG,
-      useValue: DEFAULT_DROPZONE_CONFIG
-    }
-  ]
+  bootstrap: [HomePage]
 })
 export class HomePageModule {}
