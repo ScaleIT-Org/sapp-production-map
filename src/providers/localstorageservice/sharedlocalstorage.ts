@@ -69,6 +69,7 @@ export class SharedLocalStorageProvider {
       let app: App = new App();
       if (obj.name != undefined) app.name = obj.name;
       if (obj.url != undefined) app.url = obj.url;
+      if (obj.status != undefined) app.status = obj.status;
       if (obj.imgUrl != undefined) app.imgUrl = obj.imgUrl;
       if (obj.iconLocalHelper != undefined) app.iconLocalHelper = obj.iconLocalHelper;
       if (obj.endPosition != undefined) {
@@ -106,7 +107,7 @@ export class SharedLocalStorageProvider {
     this.chosenApps.push(app);
   }
 
-  delChosenAppsByIndex(index: number){
+  delChosenAppsByIndex(index: number) {
     this.chosenApps.splice(index, 1);
     this.chosenAppsControl.next(this.chosenApps);
 
