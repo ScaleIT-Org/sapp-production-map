@@ -23,7 +23,7 @@
 
     <ion-item>
       <ion-label>Scrolling </ion-label>
-      <ion-toggle [(ngModel)]="isScrollingEnabled" (click)="toggleScrolling()" ></ion-toggle>
+      <ion-toggle [(ngModel)]="isScrollingEnabled" (ionChange)="toggleScrolling()"  ></ion-toggle>
     </ion-item>
 
   </ion-content>

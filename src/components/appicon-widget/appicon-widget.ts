@@ -1,7 +1,7 @@
 import {
   Component
 } from "@angular/core";
-import {App} from "./app";
+import {App, AppStatus} from "./app";
 import {DomSanitizer} from "@angular/platform-browser";
 import {SharedLocalStorageProvider} from "../../providers/localstorageservice/sharedlocalstorage";
 
@@ -30,7 +30,18 @@ export class AppiconWidgetComponent {
     this.smokescreen = false;
     this.chosenApps = this.sharedLocalStorageProvider.getChosenApps();
     this.sharedLocalStorageProvider.getChosenAppsControl().subscribe(newChosenApps => {
-      this.chosenApps = newChosenApps;
+      if(newChosenApps.length===0 && this.chosenApps.length===0){
+        this.chosenApps.push(
+          new App(
+            "ScaleIt App",
+            "https://scale-it.org/de/",
+            AppStatus.Up
+          )
+        );
+      }else{
+        this.chosenApps = newChosenApps;
+      }
+
       this.ifMoved = new Array(this.chosenApps.length);
       for (let i = 0; i < this.chosenApps.length; i++) {
         this.ifMoved[i] = false;
@@ -38,35 +49,6 @@ export class AppiconWidgetComponent {
 
     });
 
-    /*
-        this.chosenApps.push(
-          new App(
-            "Ionic App",
-            "https://codecraft.tv",
-
-            AppStatus.Up,
-            "/assets/imgs/vis-app.png"
-          )
-        );
-
-        this.apps.push(
-          new App(
-            "AOI Machine",
-            "https://codecraft.tv",
-
-            AppStatus.Up,
-            "/assets/imgs/machine-app.png",
-            "right"
-          )
-        );
-        this.apps.push(
-          new App("test-app", "localhost:3000/", AppStatus.Down)
-        );
-        this.apps.push(
-          new App("test-app2", "localhost:3000/", AppStatus.Warning)
-        );
-        this.apps.push(new App("test-app3", "localhost:8100"));
-        */
 
   }
 
@@ -149,13 +131,18 @@ export class AppiconWidgetComponent {
     console.log(this.ifMoved);
   }
 
+  /**
+   *
+   * @param {string} input is a string of following format: "translate(<value_x>px,<value_y>px)"
+   * @returns {Array<number>} is an array containing only value_x and value_y
+   */
   parseTransformString(input: string): Array<number> {
-    var regex = /-?\d/g;
-    var stringArray = input.split(",");
-    for (let i = 0; i < 2; i++) {
-      stringArray[i] = stringArray[i].match(regex).join("");
-    }
-    return stringArray.map(Number);
+    const stringArray = input.split(",");
+    const leftPart = stringArray[0].split("(");
+    const rightPart = stringArray[1].split(")");
+    const x = leftPart[1].split("px");
+    const y = rightPart[0].split("px");
+    return [x[0],y[0]].map(Number);
   }
 
   undo(index: number) {
