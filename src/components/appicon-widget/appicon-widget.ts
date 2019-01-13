@@ -30,7 +30,6 @@ export class AppiconWidgetComponent {
     this.smokescreen = false;
     this.chosenApps = this.sharedLocalStorageProvider.getChosenApps();
     this.sharedLocalStorageProvider.getChosenAppsControl().subscribe(newChosenApps => {
-      console.log("when initttt", newChosenApps);
       if(newChosenApps.length===0 && this.chosenApps.length===0){
         this.chosenApps.push(
           new App(
