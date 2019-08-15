@@ -19,7 +19,8 @@ RUN npm install
 # Copy our app from the hard drive to the working direcotry in the docker image
 COPY ./ ./
 # Build the App inside the image
-RUN npm run build --prod
+# fix Class Debuger incorrectly implements interface Console: 'RUN npm run build --prod' remove --prod
+RUN npm run build
 
 ##################
 # Production Build
