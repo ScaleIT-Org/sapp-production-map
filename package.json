@@ -28,7 +28,7 @@
     "@types/jquery": "3.3.1",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
-    "jquery": "3.3.1",
+    "jquery": "3.5.0",
     "ngx-store": "1.4.3",
     "angular2-draggable": "^1.4.2",
     "rxjs": "5.5.8",
