@@ -40,7 +40,7 @@
     "@angular/compiler": "5.2.11",
     "@angular/compiler-cli": "5.2.11",
     "@ionic/app-scripts": "3.2.1",
-    "ng-packagr": "2.4.5",
+    "ng-packagr": "10.1.1",
     "testcafe": "0.21.0",
     "testcafe-angular-selectors": "0.3.0",
     "tsickle": "0.27.5",
